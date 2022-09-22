@@ -20,31 +20,35 @@ export default function AgriTypeCard(props: IProps) {
   const { pk, agriculture_type_image, description, name } = props.data;
   const { onPress } = props;
   return (
-    <Pressable onPress={onPress}>
-      <View style={styles.container}>
-        <PoppinText
-          style={{
-            fontFamily: "poppins-semibold",
+    <Pressable onPress={onPress} style={styles.container}>
+      <View
+        style={{
+          height: Dimensions.get("screen").width * 0.2 + 25,
+          width: Dimensions.get("screen").width * 0.2 + 25,
+        }}
+      >
+        <Image
+          resizeMode="contain"
+          source={{ uri: agriculture_type_image }}
+          PlaceholderContent={<ActivityIndicator />}
+          height={"100%"}
+          width={"100%"}
+          containerStyle={{
+            flex: 1,
+            borderWidth: 1,
+            borderColor: DefaultColor.white,
+            borderRadius: 500,
           }}
-        >
-          {name}
-        </PoppinText>
-        <View style={{ flex: 1 }}>
-          <Image
-            resizeMode="contain"
-            source={{ uri: agriculture_type_image }}
-            PlaceholderContent={<ActivityIndicator />}
-            height={"100%"}
-            width={"100%"}
-            containerStyle={{
-              flex: 1,
-              borderWidth: 1,
-              borderColor: DefaultColor.white,
-              borderRadius: 5,
-            }}
-          />
-        </View>
+        />
       </View>
+      <PoppinText
+        style={{
+          fontFamily: "poppins-semibold",
+        }}
+        numberOfLines={1}
+      >
+        {name}
+      </PoppinText>
     </Pressable>
   );
 }
@@ -52,11 +56,15 @@ export default function AgriTypeCard(props: IProps) {
 const styles = StyleSheet.create({
   container: {
     flex: 0,
-    height: Dimensions.get("screen").width * 0.45 + 30,
-    width: Dimensions.get("screen").width * 0.45,
-    padding: 10,
+    backgroundColor: DefaultColor.lightGreen,
+    justifyContent: "center",
+    alignItems: "center",
+    height: Dimensions.get("screen").width * 0.4,
+    width: Dimensions.get("screen").width * 0.4,
+    padding: 20,
     borderWidth: 2,
     borderColor: DefaultColor.main,
-    borderRadius: 20,
+    borderRadius: 500,
+    overflow: "hidden",
   },
 });

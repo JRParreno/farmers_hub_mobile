@@ -1,119 +1,59 @@
-import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import * as React from "react";
-import { useCallback, useState } from "react";
-import { FlatList, StyleSheet, View } from "react-native";
-import { SearchBar } from "react-native-elements";
-import AgriItemCard from "../components/AgriItemCard";
+import { useState } from "react";
+import { Dimensions, StyleSheet, View } from "react-native";
 import ViewWithLoading from "../components/ViewWithLoading";
+import Lottie from "lottie-react-native";
 import { DefaultColor } from "../constants/Colors";
-import Agriculture from "../models/Agriculture";
-import { fetchAgricultures } from "../repository/AgriRepository";
-import { ErrorMessage } from "../utils/ErrorMessage";
+import { PoppinText } from "../components/StyledText";
+import { ButtonComponent } from "../components/Button/StyledButton";
+import { StackActions, useNavigation } from "@react-navigation/native";
+import { storeData } from "../database/StoreData";
 
 export default function LandingScreen() {
-  const navigation = useNavigation();
   const [loading, setLoading] = useState<boolean>(false);
-  const [query, setQuery] = useState<string>("");
-  const [agris, setAgris] = useState<Array<Agriculture> | null>(null);
-  const [numPage, setNumPage] = useState("1");
-  const [refreshing, setRefreshing] = useState<boolean>(false);
-
-  const handleGetAgris = (page: number, q?: string) => {
-    fetchAgricultures(page.toString())
-      .then((data: Array<Agriculture>) => {
-        if (data && data.length > 0) {
-          if (page === 1) {
-            setAgris(data);
-          } else {
-            if (agris) {
-              setAgris(agris.concat(data));
-            }
-          }
-          setNumPage(page.toString());
-        } else {
-          setAgris(data);
-        }
-      })
-      .catch((error: any) => {
-        if (
-          error.response &&
-          error.response.data &&
-          error.response.data.detail
-        ) {
-          return true;
-        }
-        ErrorMessage(error);
-      })
-      .finally(() => {
-        setLoading(false);
-        setRefreshing(false);
-      });
-  };
-
-  const _renderItem = ({ item, index }) => {
-    return (
-      <AgriItemCard
-        key={item.pk}
-        data={item}
-        onPress={() => {
-          // @ts-ignore
-          navigation.navigate("Agriculture", {
-            screen: "AgicultureTypes",
-            params: { agriculture: item },
-          });
-        }}
-      />
-    );
-  };
-
-  useFocusEffect(
-    useCallback(() => {
-      handleGetAgris(1);
-    }, [])
-  );
+  const navigation = useNavigation();
 
   return (
     <ViewWithLoading loading={loading}>
       <View style={styles.container}>
-        <SearchBar
-          autoCompleteType
-          round
-          platform="android"
-          lightTheme
-          placeholder="Search"
-          onChangeText={(text: string) => {
-            setQuery(text);
-          }}
-          value={query}
-          onIconPress={() => {}}
-          onEndEditing={() => {}}
-          onClear={() => {}}
-          editable={false}
-          inputContainerStyle={{
+        <View
+          style={{
+            flex: 0,
+            zIndex: 1,
+            position: "absolute",
+            backgroundColor: DefaultColor.white,
             borderWidth: 1,
-            borderBottomWidth: 1,
-            borderColor: DefaultColor.main,
-            borderRadius: 10,
+            borderRadius: 20,
+            padding: 10,
+            margin: 20,
+            top: 0,
           }}
-        />
-        <View style={{ flex: 1, marginTop: 20 }}>
-          <FlatList
-            data={agris}
-            scrollsToTop={true}
-            showsVerticalScrollIndicator={false}
-            renderItem={_renderItem}
-            keyExtractor={(item) => item.pk}
-            onEndReached={() => {
-              let page = Number(numPage) + 1;
-              handleGetAgris(page);
-            }}
-            refreshing={refreshing}
-            onRefresh={() => {
-              setRefreshing(true);
-              handleGetAgris(1);
+        >
+          <PoppinText>
+            Hi User!{"\n"}Welcome to our recommendation app for toxicity of
+            insecticides. The information that you will see are based on our
+            research that we gather with the help of farmers and agriculturist
+            in the Municipality of Polangui. Rest assured that it is reliable
+            and helpful, Thank you and Enjoy!
+          </PoppinText>
+        </View>
+        <View style={{ flex: 1, justifyContent: "flex-start", marginTop: 100 }}>
+          <Lottie
+            source={require("../assets/lottie/45869-farmers.json")}
+            autoPlay={true}
+            loop={true}
+            style={{
+              flex: 1,
             }}
           />
         </View>
+        <ButtonComponent
+          title="Continue"
+          onPress={async () => {
+            await storeData("skipLanding", "skipLanding");
+            navigation.dispatch(StackActions.replace("Root"));
+          }}
+        />
       </View>
     </ViewWithLoading>
   );
@@ -122,26 +62,7 @@ export default function LandingScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 10,
+    backgroundColor: DefaultColor.lightGreen,
+    paddingHorizontal: 10,
   },
 });
-
-{
-  /* <FlatList
-          data={posts}
-          ListHeaderComponent={_renderHeader}
-          scrollsToTop={true}
-          showsVerticalScrollIndicator={false}
-          renderItem={_renderItem}
-          keyExtractor={(item) => item.pk}
-          onEndReached={() => {
-            let page = Number(numPage) + 1;
-            handleGetPostList(page);
-          }}
-          refreshing={refreshing}
-          onRefresh={() => {
-            setRefreshing(true);
-            handleGetPostList(1);
-          }}
-        /> */
-}

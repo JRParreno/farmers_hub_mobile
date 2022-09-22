@@ -8,7 +8,8 @@ export const DefaultColor = {
   black: '#000',
   dark: '#707070',
   grey: '#E7E9EA',
-  danger: '#FC0000'
+  danger: '#FC0000',
+  lightGreen: '#C5E0B4',
 }
 
 export default {
