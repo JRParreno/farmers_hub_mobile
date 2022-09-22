@@ -62,7 +62,7 @@ function RootNavigator() {
       <Stack.Screen
         name="Agriculture"
         component={AgricultureNavigator}
-        options={{ title: "Oops!" }}
+        options={{ title: "" }}
       />
       <Stack.Group screenOptions={{ presentation: "modal" }}>
         <Stack.Screen name="NotFound" component={ModalScreen} />

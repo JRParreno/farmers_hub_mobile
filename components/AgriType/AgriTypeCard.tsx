@@ -1,25 +1,23 @@
 import * as React from "react";
-import { useState } from "react";
 import {
   Dimensions,
   StyleSheet,
   View,
-  Text,
   ActivityIndicator,
   Pressable,
 } from "react-native";
-import { DefaultColor } from "../constants/Colors";
-import Agriculture from "../models/Agriculture";
-import { MonoText, PoppinText } from "./StyledText";
+import { DefaultColor } from "../../constants/Colors";
+import AgriType from "../../models/AgriType";
+import { PoppinText } from "../StyledText";
 import { Image } from "react-native-elements";
 
 interface IProps {
-  data: Agriculture;
+  data: AgriType;
   onPress: () => void;
 }
 
-export default function AgriItemCard(props: IProps) {
-  const { pk, agriculture_image, description, name } = props.data;
+export default function AgriTypeCard(props: IProps) {
+  const { pk, agriculture_type_image, description, name } = props.data;
   const { onPress } = props;
   return (
     <Pressable onPress={onPress}>
@@ -34,7 +32,7 @@ export default function AgriItemCard(props: IProps) {
         <View style={{ flex: 1 }}>
           <Image
             resizeMode="contain"
-            source={{ uri: agriculture_image }}
+            source={{ uri: agriculture_type_image }}
             PlaceholderContent={<ActivityIndicator />}
             height={"100%"}
             width={"100%"}
