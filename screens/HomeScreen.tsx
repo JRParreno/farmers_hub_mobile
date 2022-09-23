@@ -57,10 +57,7 @@ export default function HomeScreen() {
         data={item}
         onPress={() => {
           // @ts-ignore
-          navigation.navigate("Agriculture", {
-            screen: "AgicultureTypes",
-            params: { agriculture: item },
-          });
+          navigation.navigate("AgicultureTypes", { agriculture: item });
         }}
       />
     );

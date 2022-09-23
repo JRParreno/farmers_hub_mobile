@@ -32,6 +32,8 @@ import ModalScreen from "../screens/ModalScreen";
 import { RootStackParamList } from "../types";
 import AgricultureNavigator from "./AgricultureNavigator";
 import LinkingConfiguration from "./LinkingConfiguration";
+import { AgriTypeDetailScreen, AgriTypeScreen } from "../screens/Agirculture";
+import { RecommendationScreen } from "../screens/Recommendation";
 
 export default function Navigation({
   colorScheme,
@@ -83,6 +85,8 @@ function RootNavigator() {
             <Ionicons name="menu" size={26} />
           </Pressable>
         ),
+        headerBackTitleVisible: false,
+        title: "",
       }}
       initialRouteName={skipped ? "Root" : "Landing"}
     >
@@ -96,10 +100,14 @@ function RootNavigator() {
         component={LandingScreen}
         options={{ title: "", headerShown: false }}
       />
+      <Stack.Screen name="AgicultureTypes" component={AgriTypeScreen} />
       <Stack.Screen
-        name="Agriculture"
-        component={AgricultureNavigator}
-        options={{ title: "" }}
+        name="AgicultureTypeDetail"
+        component={AgriTypeDetailScreen}
+      />
+      <Stack.Screen
+        name="RecommendationList"
+        component={RecommendationScreen}
       />
       <Stack.Group screenOptions={{ presentation: "modal" }}>
         <Stack.Screen name="NotFound" component={ModalScreen} />

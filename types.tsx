@@ -10,6 +10,7 @@ import {
 } from "@react-navigation/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import Agriculture from "./models/Agriculture";
+import AgriType from "./models/AgriType";
 
 declare global {
   namespace ReactNavigation {
@@ -22,6 +23,15 @@ export type RootStackParamList = {
   Agriculture: undefined;
   NotFound: undefined;
   Landing: undefined;
+  AgicultureTypes: {
+    agriculture: Agriculture;
+  };
+  AgicultureTypeDetail: {
+    agricultureType: AgriType;
+  };
+  RecommendationList: {
+    agricultureType: AgriType;
+  };
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
@@ -37,9 +47,3 @@ export type RootTabScreenProps<Screen extends keyof RootTabParamList> =
     BottomTabScreenProps<RootTabParamList, Screen>,
     NativeStackScreenProps<RootStackParamList>
   >;
-
-export type AgricultureParamList = {
-  AgicultureTypes: {
-    agriculture: Agriculture;
-  };
-};

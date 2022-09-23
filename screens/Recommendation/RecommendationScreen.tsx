@@ -7,44 +7,45 @@ import {
 import * as React from "react";
 import { useCallback, useState } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
-import { SearchBar } from "react-native-elements";
-import AgriTypeCard from "../../components/AgriType/AgriTypeCard";
+import { Avatar, ListItem, SearchBar } from "react-native-elements";
+import AgriTypeCard from "../../components/AgriItemCard";
 import { PoppinText } from "../../components/StyledText";
 import ViewWithLoading from "../../components/ViewWithLoading";
 import { DefaultColor } from "../../constants/Colors";
-import AgriType from "../../models/AgriType";
-import { fetchAgricultureTypes } from "../../repository/AgriRepository";
+import Recommendation from "../../models/Recommendation";
+import { fetchRecommendation } from "../../repository/AgriRepository";
 import { RootStackParamList } from "../../types";
 import { ErrorMessage } from "../../utils/ErrorMessage";
 
 type IType = {
-  params: RootStackParamList["AgicultureTypes"];
+  params: RootStackParamList["RecommendationList"];
 };
 
-export default function AgriTypeScreen() {
+export default function RecommendationScreen() {
   const route = useRoute<RouteProp<IType, "params">>();
-  const agriculture = route.params.agriculture;
+  const agricultureType = route.params.agricultureType;
   const navigation = useNavigation();
   const [loading, setLoading] = useState<boolean>(false);
   const [query, setQuery] = useState<string>("");
-  const [agris, setAgris] = useState<Array<AgriType> | null>(null);
+  const [recommendation, setRecommendation] =
+    useState<Array<Recommendation> | null>(null);
   const [numPage, setNumPage] = useState("1");
   const [refreshing, setRefreshing] = useState<boolean>(false);
 
-  const handleGetAgris = (page: number, q?: string) => {
-    fetchAgricultureTypes(agriculture.pk, page.toString())
-      .then((data: Array<AgriType>) => {
+  const handleGetRecommendation = (page: number, q?: string) => {
+    fetchRecommendation(agricultureType.pk, page.toString())
+      .then((data: Array<Recommendation>) => {
         if (data && data.length > 0) {
           if (page === 1) {
-            setAgris(data);
+            setRecommendation(data);
           } else {
-            if (agris) {
-              setAgris(agris.concat(data));
+            if (recommendation) {
+              setRecommendation(recommendation.concat(data));
             }
           }
           setNumPage(page.toString());
         } else {
-          setAgris(data);
+          setRecommendation(data);
         }
       })
       .catch((error: any) => {
@@ -65,22 +66,25 @@ export default function AgriTypeScreen() {
 
   const _renderItem = ({ item, index }) => {
     return (
-      <AgriTypeCard
-        key={item.pk}
-        data={item}
-        onPress={() => {
-          // @ts-ignore
-          navigation.navigate("RecommendationList", {
-            agricultureType: item,
-          });
-        }}
-      />
+      <ListItem
+        key={index}
+        bottomDivider
+        hasTVPreferredFocus={undefined}
+        tvParallaxProperties={undefined}
+        topDivider={index == 0}
+      >
+        <ListItem.Content>
+          <ListItem.Title>{item.title}</ListItem.Title>
+          {/* <ListItem.Subtitle>{item.author.user.name}</ListItem.Subtitle> */}
+        </ListItem.Content>
+        <ListItem.Chevron tvParallaxProperties />
+      </ListItem>
     );
   };
 
   useFocusEffect(
     useCallback(() => {
-      handleGetAgris(1);
+      handleGetRecommendation(1);
     }, [])
   );
 
@@ -117,7 +121,7 @@ export default function AgriTypeScreen() {
                 fontSize: 17,
               }}
             >
-              Please select{" "}
+              Recommendation{" "}
               <PoppinText
                 style={{
                   color: DefaultColor.main,
@@ -125,25 +129,25 @@ export default function AgriTypeScreen() {
                   fontSize: 17,
                 }}
               >
-                {agriculture.name}
+                {agricultureType.name}
               </PoppinText>
             </PoppinText>
           </View>
 
           <FlatList
-            data={agris}
+            data={recommendation}
             scrollsToTop={true}
             showsVerticalScrollIndicator={false}
             renderItem={_renderItem}
             keyExtractor={(item) => item.pk}
             onEndReached={() => {
               let page = Number(numPage) + 1;
-              handleGetAgris(page);
+              handleGetRecommendation(page);
             }}
             refreshing={refreshing}
             onRefresh={() => {
               setRefreshing(true);
-              handleGetAgris(1);
+              handleGetRecommendation(1);
             }}
           />
         </View>

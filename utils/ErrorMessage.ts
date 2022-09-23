@@ -10,5 +10,5 @@ export const ErrorMessage = (error: any) => {
         error_message = "Something went wrong";
     }
 
-    if (error_message !== "") Alert.alert("MedMover", error_message);
+    if (error_message !== "") Alert.alert("System", error_message);
 }
