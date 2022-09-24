@@ -34,6 +34,7 @@ import AgricultureNavigator from "./AgricultureNavigator";
 import LinkingConfiguration from "./LinkingConfiguration";
 import { AgriTypeDetailScreen, AgriTypeScreen } from "../screens/Agirculture";
 import { RecommendationScreen, SeasonScreen } from "../screens/Recommendation";
+import { InfestationScreen } from "../screens/Infestation";
 
 export default function Navigation({
   colorScheme,
@@ -110,6 +111,7 @@ function RootNavigator() {
         component={RecommendationScreen}
       />
       <Stack.Screen name="Season" component={SeasonScreen} />
+      <Stack.Screen name="Infestation" component={InfestationScreen} />
       <Stack.Group screenOptions={{ presentation: "modal" }}>
         <Stack.Screen name="NotFound" component={ModalScreen} />
       </Stack.Group>
