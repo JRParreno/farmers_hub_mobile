@@ -11,6 +11,7 @@ import {
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import Agriculture from "./models/Agriculture";
 import AgriType from "./models/AgriType";
+import Recommendation from "./models/Recommendation";
 
 declare global {
   namespace ReactNavigation {
@@ -31,6 +32,9 @@ export type RootStackParamList = {
   };
   RecommendationList: {
     agricultureType: AgriType;
+  };
+  Season: {
+    recommendation: Recommendation;
   };
 };
 

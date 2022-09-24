@@ -76,6 +76,9 @@ export default function RecommendationScreen() {
         hasTVPreferredFocus={undefined}
         tvParallaxProperties={undefined}
         topDivider={index == 0}
+        onPress={() => {
+          navigation.navigate("Season", { recommendation: item });
+        }}
       >
         <ListItem.Content>
           <ListItem.Title>{item.title}</ListItem.Title>

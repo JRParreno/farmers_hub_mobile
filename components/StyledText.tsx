@@ -17,3 +17,21 @@ export function PoppinText(props: TextProps) {
     />
   );
 }
+
+export function PoppinTextBold(props: TextProps) {
+  return (
+    <Text
+      {...props}
+      style={[
+        {
+          fontFamily: "poppins-semibold",
+          fontSize: 25,
+          color: "#262626",
+          textAlign: "center",
+          marginBottom: 20,
+        },
+        props.style,
+      ]}
+    />
+  );
+}
