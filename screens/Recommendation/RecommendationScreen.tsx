@@ -33,7 +33,11 @@ export default function RecommendationScreen() {
   const [refreshing, setRefreshing] = useState<boolean>(false);
 
   const handleGetRecommendation = (page: number, q?: string) => {
-    fetchRecommendation(agricultureType.pk, page.toString())
+    fetchRecommendation({
+      page,
+      pk: agricultureType.pk,
+      query: q ? q : query,
+    })
       .then((data: Array<Recommendation>) => {
         if (data && data.length > 0) {
           if (page === 1) {
@@ -88,9 +92,34 @@ export default function RecommendationScreen() {
     }, [])
   );
 
+  const handleSearch = (q?: string) => {
+    setLoading(true);
+    handleGetRecommendation(1, q ? q : query);
+  };
+
   return (
     <ViewWithLoading loading={loading}>
       <View style={styles.container}>
+        <View style={{ marginBottom: 20 }}>
+          <PoppinText
+            style={{
+              textAlign: "center",
+              fontFamily: "poppins-semibold",
+              fontSize: 17,
+            }}
+          >
+            Recommendation{" "}
+            <PoppinText
+              style={{
+                color: DefaultColor.main,
+                fontFamily: "poppins-semibold",
+                fontSize: 17,
+              }}
+            >
+              {agricultureType.name}
+            </PoppinText>
+          </PoppinText>
+        </View>
         <SearchBar
           autoCompleteType
           round
@@ -101,10 +130,15 @@ export default function RecommendationScreen() {
             setQuery(text);
           }}
           value={query}
-          onIconPress={() => {}}
-          onEndEditing={() => {}}
-          onClear={() => {}}
-          editable={false}
+          onIconPress={() => {
+            handleSearch();
+          }}
+          onEndEditing={() => {
+            handleSearch();
+          }}
+          onClear={() => {
+            handleSearch("");
+          }}
           inputContainerStyle={{
             borderWidth: 1,
             borderBottomWidth: 1,
@@ -113,43 +147,34 @@ export default function RecommendationScreen() {
           }}
         />
         <View style={{ flex: 1, marginTop: 20 }}>
-          <View style={{ marginBottom: 20 }}>
-            <PoppinText
+          {recommendation && recommendation.length > 0 ? (
+            <FlatList
+              data={recommendation}
+              scrollsToTop={true}
+              showsVerticalScrollIndicator={false}
+              renderItem={_renderItem}
+              keyExtractor={(item) => item.pk}
+              onEndReached={() => {
+                let page = Number(numPage) + 1;
+                handleGetRecommendation(page);
+              }}
+              refreshing={refreshing}
+              onRefresh={() => {
+                setRefreshing(true);
+                handleGetRecommendation(1);
+              }}
+            />
+          ) : (
+            <View
               style={{
-                textAlign: "center",
-                fontFamily: "poppins-semibold",
-                fontSize: 17,
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
               }}
             >
-              Recommendation{" "}
-              <PoppinText
-                style={{
-                  color: DefaultColor.main,
-                  fontFamily: "poppins-semibold",
-                  fontSize: 17,
-                }}
-              >
-                {agricultureType.name}
-              </PoppinText>
-            </PoppinText>
-          </View>
-
-          <FlatList
-            data={recommendation}
-            scrollsToTop={true}
-            showsVerticalScrollIndicator={false}
-            renderItem={_renderItem}
-            keyExtractor={(item) => item.pk}
-            onEndReached={() => {
-              let page = Number(numPage) + 1;
-              handleGetRecommendation(page);
-            }}
-            refreshing={refreshing}
-            onRefresh={() => {
-              setRefreshing(true);
-              handleGetRecommendation(1);
-            }}
-          />
+              <PoppinText>NO RESULTS FOUND</PoppinText>
+            </View>
+          )}
         </View>
       </View>
     </ViewWithLoading>

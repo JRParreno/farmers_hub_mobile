@@ -32,7 +32,11 @@ export default function AgriTypeScreen() {
   const [refreshing, setRefreshing] = useState<boolean>(false);
 
   const handleGetAgris = (page: number, q?: string) => {
-    fetchAgricultureTypes(agriculture.pk, page.toString())
+    fetchAgricultureTypes({
+      page,
+      pk: agriculture.pk,
+      query: q ? q : query,
+    })
       .then((data: Array<AgriType>) => {
         if (data && data.length > 0) {
           if (page === 1) {
@@ -84,6 +88,11 @@ export default function AgriTypeScreen() {
     }, [])
   );
 
+  const handleSearch = () => {
+    setLoading(true);
+    handleGetAgris(1, query);
+  };
+
   return (
     <ViewWithLoading loading={loading}>
       <View style={styles.container}>
@@ -97,10 +106,15 @@ export default function AgriTypeScreen() {
             setQuery(text);
           }}
           value={query}
-          onIconPress={() => {}}
-          onEndEditing={() => {}}
-          onClear={() => {}}
-          editable={false}
+          onIconPress={() => {
+            handleSearch();
+          }}
+          onEndEditing={() => {
+            handleSearch();
+          }}
+          onClear={() => {
+            handleSearch();
+          }}
           inputContainerStyle={{
             borderWidth: 1,
             borderBottomWidth: 1,
