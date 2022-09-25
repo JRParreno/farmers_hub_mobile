@@ -41,6 +41,10 @@ export type RootStackParamList = {
     infestation: Infestation;
     recommendation: Recommendation;
   };
+  Treat: {
+    infestation: Infestation;
+    recommendation: Recommendation;
+  };
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
