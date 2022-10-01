@@ -16,7 +16,7 @@ export default class Infestation {
     link: string, 
     symptoms: Array<Symptom>, 
     prevent_measures: Array<PreventMeasure>, 
-    chemical_controls: Array<ChemicalControls>
+    chemical_controls: Array<ChemicalControls>,
 ) {
     this.pk = pk
     this.insect = insect
@@ -56,6 +56,7 @@ export class ChemicalControls {
     instructions: Array<Instruction>;
     safety_precautions: Array<SafetyPrecaution>;
     insecticides: Array<ChemicalInsecticide>;
+    hazard_level: string;
 
   constructor(
     pk: string, 
@@ -63,7 +64,8 @@ export class ChemicalControls {
     link: string, 
     instructions: Array<Instruction>, 
     safety_precautions: Array<SafetyPrecaution>, 
-    insecticides: Array<ChemicalInsecticide>
+    insecticides: Array<ChemicalInsecticide>,
+    hazard_level: string
 ) {
     this.pk = pk
     this.reminder = reminder
@@ -71,6 +73,7 @@ export class ChemicalControls {
     this.instructions = instructions
     this.safety_precautions = safety_precautions
     this.insecticides = insecticides
+    this.hazard_level = hazard_level
   }
 
 }
@@ -117,20 +120,17 @@ export class SafetyPrecaution {
     description: string;
     icon_image: string;
     link: string;
-    hazard_level: string;
 
   constructor(
     pk: string, 
     description: string, 
     icon_image: string, 
     link: string, 
-    hazard_level: string
 ) {
     this.pk = pk
     this.description = description
     this.icon_image = icon_image
     this.link = link
-    this.hazard_level = hazard_level
   }
 
 }

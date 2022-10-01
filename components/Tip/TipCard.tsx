@@ -1,7 +1,13 @@
 import { Ionicons } from "@expo/vector-icons";
 import * as React from "react";
 import { useState } from "react";
-import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
+import {
+  StyleProp,
+  StyleSheet,
+  TextStyle,
+  View,
+  ViewStyle,
+} from "react-native";
 import { DefaultColor } from "../../constants/Colors";
 import { PoppinText } from "../StyledText";
 
@@ -9,20 +15,22 @@ interface IProps {
   text: string;
   iconName: any;
   style?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<TextStyle>;
+  iconColor?: string;
 }
 
 export default function TipCard(props: IProps) {
   const [loading, setLoading] = useState<boolean>(false);
-  const { style, text, iconName } = props;
+  const { style, text, iconName, textStyle, iconColor } = props;
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, style]}>
       <Ionicons
         name={iconName}
         size={25}
-        color={DefaultColor.black}
+        color={iconColor ? iconColor : DefaultColor.black}
         style={{ marginRight: 10 }}
       />
-      <PoppinText>{text}</PoppinText>
+      <PoppinText style={[textStyle]}>{text}</PoppinText>
     </View>
   );
 }

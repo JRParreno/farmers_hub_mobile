@@ -1,13 +1,14 @@
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import * as React from "react";
 import { useState } from "react";
-import { ScrollView, StyleSheet, View } from "react-native";
-import InstructionCard from "../../components/Instructions/InstructionCard";
+import { Pressable, ScrollView, StyleSheet, View } from "react-native";
+import { SafetyCard, InstructionCard } from "../../components/Instructions";
+import LinkBtn from "../../components/LinkBtn";
 import { PoppinText } from "../../components/StyledText";
 import { TipCard } from "../../components/Tip";
 import ViewWithLoading from "../../components/ViewWithLoading";
 import { DefaultColor } from "../../constants/Colors";
-import { Instruction } from "../../models/Infestation";
+import { Instruction, SafetyPrecaution } from "../../models/Infestation";
 import { RootStackParamList } from "../../types";
 
 type IType = {
@@ -52,6 +53,52 @@ export default function InstructionScreen() {
                   />
                 )
               )}
+            {instruction.instructions.length > 0 && (
+              <LinkBtn url={instruction.instructions[0].link} />
+            )}
+          </View>
+          <TipCard
+            iconName={"nuclear"}
+            text={`${instruction.hazard_level} Toxic`}
+            style={{ backgroundColor: "red" }}
+            textStyle={{
+              color: DefaultColor.white,
+              fontSize: 18,
+              fontFamily: "poppins-semibold",
+            }}
+            iconColor={DefaultColor.white}
+          />
+          <TipCard
+            iconName={"information-circle-sharp"}
+            text={instruction.reminder}
+          />
+
+          <View style={styles.applicationContainer}>
+            <PoppinText
+              style={{
+                fontSize: 14,
+                fontFamily: "poppins-semibold",
+                marginBottom: 20,
+              }}
+            >
+              Safety Precautions!
+            </PoppinText>
+            {instruction.safety_precautions.length > 0 &&
+              instruction.safety_precautions.map(
+                (data: SafetyPrecaution, index: number) => (
+                  <SafetyCard
+                    key={data.pk}
+                    safetyPrecaution={data}
+                    isShowArrow={
+                      instruction.safety_precautions.length > 1 &&
+                      instruction.safety_precautions.length !== index + 1
+                    }
+                  />
+                )
+              )}
+            {instruction.safety_precautions.length > 0 && (
+              <LinkBtn url={instruction.safety_precautions[0].link} />
+            )}
           </View>
         </ScrollView>
       </View>
@@ -70,5 +117,15 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: DefaultColor.grey,
     borderRadius: 10,
+    marginBottom: 10,
+  },
+  toxicContainer: {
+    flex: 0,
+  },
+  linkContainer: {
+    flex: 0,
+    width: "100%",
+    alignItems: "center",
+    padding: 10,
   },
 });
