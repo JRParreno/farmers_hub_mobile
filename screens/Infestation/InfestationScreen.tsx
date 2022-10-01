@@ -31,7 +31,12 @@ export default function InfestationScreen() {
           <Symptoms symptoms={infestation.symptoms} />
           <ButtonComponent
             title="Prevent"
-            onPress={() => {}}
+            onPress={() => {
+              navigation.navigate("PreventMeasures", {
+                infestation: infestation,
+                recommendation: recommendation,
+              });
+            }}
             backgroundColor={DefaultColor.secondary}
           />
           <ButtonComponent

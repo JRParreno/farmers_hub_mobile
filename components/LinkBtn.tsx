@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState } from "react";
-import { Pressable, StyleSheet, View } from "react-native";
+import { Pressable, StyleSheet, Linking, Alert } from "react-native";
 import { PoppinText } from "./StyledText";
 
 interface IProps {
@@ -10,8 +10,18 @@ interface IProps {
 export default function LinkBtn(props: IProps) {
   const [loading, setLoading] = useState<boolean>(false);
   const { url } = props;
+
+  const handleOpenUrl = async () => {
+    const supported = await Linking.canOpenURL(url);
+
+    if (supported) {
+      await Linking.openURL(url);
+    } else {
+      Alert.alert(`Don't know how to open this URL: ${url}`);
+    }
+  };
   return (
-    <Pressable style={styles.container}>
+    <Pressable style={styles.container} onPress={handleOpenUrl}>
       <PoppinText numberOfLines={1} style={{ color: "blue" }}>
         {url}
       </PoppinText>

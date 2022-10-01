@@ -40,6 +40,7 @@ import {
   TreatScreen,
 } from "../screens/Infestation";
 import { handleGetNames } from "../utils/utls";
+import PreventScreen from "../screens/PreventMeasures/PreventScreen";
 
 export default function Navigation({
   colorScheme,
@@ -118,6 +119,12 @@ function RootNavigator() {
       <Stack.Screen name="Season" component={SeasonScreen} />
       <Stack.Screen name="Infestation" component={InfestationScreen} />
       <Stack.Screen name="Treat" component={TreatScreen} />
+      <Stack.Screen
+        name="PreventMeasures"
+        component={PreventScreen}
+        options={{ title: "Prevent Measures" }}
+      />
+
       <Stack.Screen
         name="Instruction"
         component={InstructionScreen}
