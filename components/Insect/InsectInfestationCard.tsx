@@ -11,7 +11,6 @@ interface IProps {
 }
 
 export default function InsectInfestationCard(props: IProps) {
-  const [loading, setLoading] = useState<boolean>(false);
   const { insect_image, link, name, pk } = props.insect;
   console.log(insect_image);
   return (

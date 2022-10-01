@@ -14,7 +14,6 @@ interface IProps {
 }
 
 export default function InstructionCard(props: IProps) {
-  const [loading, setLoading] = useState<boolean>(false);
   const { instruction, isShowArrow } = props;
 
   return (

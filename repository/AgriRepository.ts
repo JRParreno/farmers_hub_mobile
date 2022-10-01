@@ -20,8 +20,10 @@ export async function fetchAgricultures(page: string) {
 }
 
 export async function fetchAgricultureTypes(props: IProps) {
-    const { page, pk, query} = props;
-    return await axios.get(`${ApiConfig().apiUrl}/agriculture-type/list?title=${query}&agriculture_pk=${pk}&page=${page}`).then(response => {
+    const { page, pk, query } = props;
+    const url = `${ApiConfig().apiUrl}/agriculture-type/list?title=${query}&agriculture_pk=${pk}&page=${page}`;
+    console.log(url);
+    return await axios.get(url).then(response => {
         return response.data.results.map((data: AgriType) => {
             return data;
         });

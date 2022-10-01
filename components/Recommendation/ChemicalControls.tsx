@@ -21,7 +21,6 @@ interface IProps {
 }
 
 export default function ChemicalControlCard(props: IProps) {
-  const [loading, setLoading] = useState<boolean>(false);
   const { chemicalControls, title, recommendation } = props;
   const navigation = useNavigation();
 

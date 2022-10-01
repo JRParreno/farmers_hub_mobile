@@ -33,7 +33,11 @@ import { RootStackParamList } from "../types";
 import AgricultureNavigator from "./AgricultureNavigator";
 import LinkingConfiguration from "./LinkingConfiguration";
 import { AgriTypeDetailScreen, AgriTypeScreen } from "../screens/Agirculture";
-import { RecommendationScreen, SeasonScreen } from "../screens/Recommendation";
+import {
+  RecommendationScreen,
+  SearchScreen,
+  SeasonScreen,
+} from "../screens/Recommendation";
 import {
   InfestationScreen,
   InstructionScreen,
@@ -100,7 +104,18 @@ function RootNavigator() {
       <Stack.Screen
         name="Root"
         component={HomeScreen}
-        options={{ title: "" }}
+        options={(nav) => ({
+          title: "",
+          headerLeft: () => (
+            <Pressable
+              onPress={() => {
+                nav.navigation.navigate("GeneralSearch");
+              }}
+            >
+              <Ionicons name="search" size={24} />
+            </Pressable>
+          ),
+        })}
       />
       <Stack.Screen
         name="Landing"
@@ -119,6 +134,12 @@ function RootNavigator() {
       <Stack.Screen name="Season" component={SeasonScreen} />
       <Stack.Screen name="Infestation" component={InfestationScreen} />
       <Stack.Screen name="Treat" component={TreatScreen} />
+      <Stack.Screen
+        name="GeneralSearch"
+        component={SearchScreen}
+        options={{ title: "Search Recommendation" }}
+      />
+
       <Stack.Screen
         name="PreventMeasures"
         component={PreventScreen}

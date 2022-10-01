@@ -8,7 +8,6 @@ interface IProps {
 }
 
 export default function LinkBtn(props: IProps) {
-  const [loading, setLoading] = useState<boolean>(false);
   const { url } = props;
 
   const handleOpenUrl = async () => {

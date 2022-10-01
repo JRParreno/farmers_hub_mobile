@@ -28,6 +28,7 @@ export type RootStackParamList = {
   Agriculture: undefined;
   NotFound: undefined;
   Landing: undefined;
+  GeneralSearch: undefined;
   AgicultureTypes: {
     agriculture: Agriculture;
   };

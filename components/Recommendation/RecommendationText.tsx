@@ -10,7 +10,6 @@ interface IProps {
 }
 
 export default function RecommendationText(props: IProps) {
-  const [loading, setLoading] = useState<boolean>(false);
   const { text, title } = props;
 
   return (

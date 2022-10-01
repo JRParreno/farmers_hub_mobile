@@ -11,7 +11,6 @@ interface IProps {
 
 export default function InfestationCard(props: IProps) {
   const { onPress } = props;
-  const [loading, setLoading] = useState<boolean>(false);
 
   return (
     <Pressable

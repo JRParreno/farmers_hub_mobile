@@ -20,7 +20,6 @@ interface IProps {
 }
 
 export default function TipCard(props: IProps) {
-  const [loading, setLoading] = useState<boolean>(false);
   const { style, text, iconName, textStyle, iconColor } = props;
   return (
     <View style={[styles.container, style]}>

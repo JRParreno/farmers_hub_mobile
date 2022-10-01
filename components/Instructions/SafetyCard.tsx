@@ -14,7 +14,6 @@ interface IProps {
 }
 
 export default function SafetyCard(props: IProps) {
-  const [loading, setLoading] = useState<boolean>(false);
   const { safetyPrecaution, isShowArrow } = props;
 
   return (

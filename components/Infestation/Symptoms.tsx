@@ -9,7 +9,6 @@ interface IProps {
 }
 
 export default function Symptoms(props: IProps) {
-  const [loading, setLoading] = useState<boolean>(false);
   const { symptoms } = props;
 
   return (

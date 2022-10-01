@@ -13,7 +13,6 @@ interface IProps {
 export default function SeasonCard(props: IProps) {
   const { index, onPress } = props;
   const { description, pk, image, season } = props.season;
-  const [loading, setLoading] = useState<boolean>(false);
 
   return (
     <Pressable

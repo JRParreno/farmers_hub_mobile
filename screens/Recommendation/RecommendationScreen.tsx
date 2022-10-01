@@ -25,7 +25,7 @@ export default function RecommendationScreen() {
   const route = useRoute<RouteProp<IType, "params">>();
   const agricultureType = route.params.agricultureType;
   const navigation = useNavigation();
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [query, setQuery] = useState<string>("");
   const [recommendation, setRecommendation] =
     useState<Array<Recommendation> | null>(null);

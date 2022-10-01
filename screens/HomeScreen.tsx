@@ -1,7 +1,7 @@
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import * as React from "react";
 import { useCallback, useState } from "react";
-import { FlatList, StyleSheet, View } from "react-native";
+import { FlatList, Pressable, StyleSheet, View } from "react-native";
 import { SearchBar } from "react-native-elements";
 import AgriItemCard from "../components/AgriItemCard";
 import ViewWithLoading from "../components/ViewWithLoading";
@@ -12,7 +12,7 @@ import { ErrorMessage } from "../utils/ErrorMessage";
 
 export default function HomeScreen() {
   const navigation = useNavigation();
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [query, setQuery] = useState<string>("");
   const [agris, setAgris] = useState<Array<Agriculture> | null>(null);
   const [numPage, setNumPage] = useState("1");
@@ -72,27 +72,6 @@ export default function HomeScreen() {
   return (
     <ViewWithLoading loading={loading}>
       <View style={styles.container}>
-        <SearchBar
-          autoCompleteType
-          round
-          platform="android"
-          lightTheme
-          placeholder="Search"
-          onChangeText={(text: string) => {
-            setQuery(text);
-          }}
-          value={query}
-          onIconPress={() => {}}
-          onEndEditing={() => {}}
-          onClear={() => {}}
-          editable={false}
-          inputContainerStyle={{
-            borderWidth: 1,
-            borderBottomWidth: 1,
-            borderColor: DefaultColor.main,
-            borderRadius: 10,
-          }}
-        />
         <View style={{ flex: 1, marginTop: 20 }}>
           <FlatList
             data={agris}
