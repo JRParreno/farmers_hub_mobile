@@ -1,22 +1,11 @@
-import { Chat } from "../models/Chat"
-import dayjs from 'dayjs'
+import { ChemicalInsecticide } from "../models/Infestation";
 
-
-export function isSameDay(
-    currentMessage: Chat,
-    diffMessage: Chat | null | undefined,
-) {
-
-    if (!diffMessage || !diffMessage.createdAt) {
-        return false
+export const handleGetNames = (insecticides: Array<ChemicalInsecticide>) => {
+    let names = "";
+    if (insecticides.length > 0) {
+      insecticides.map((data: ChemicalInsecticide) => {
+        names += `${data.insecticide.name} ${data.percentage}% `;
+      });
     }
-
-    const currentCreatedAt = dayjs(currentMessage.createdAt)
-    const diffCreatedAt = dayjs(diffMessage.createdAt)
-
-    if (!currentCreatedAt.isValid() || !diffCreatedAt.isValid()) {
-        return false
-    }
-
-    return currentCreatedAt.isSame(diffCreatedAt, 'day')
-}
+    return names;
+  };

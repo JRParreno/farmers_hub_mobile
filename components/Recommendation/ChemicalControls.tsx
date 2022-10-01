@@ -1,4 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 import * as React from "react";
 import { useState } from "react";
 import { StyleSheet, View } from "react-native";
@@ -10,6 +11,7 @@ import {
   Insecticide,
 } from "../../models/Infestation";
 import Recommendation from "../../models/Recommendation";
+import { handleGetNames } from "../../utils/utls";
 import { PoppinText } from "../StyledText";
 
 interface IProps {
@@ -21,16 +23,7 @@ interface IProps {
 export default function ChemicalControlCard(props: IProps) {
   const [loading, setLoading] = useState<boolean>(false);
   const { chemicalControls, title, recommendation } = props;
-
-  const handleGetNames = (insecticides: Array<ChemicalInsecticide>) => {
-    let names = "";
-    if (insecticides.length > 0) {
-      insecticides.map((data: ChemicalInsecticide) => {
-        names += `${data.insecticide.name} ${data.percentage}% `;
-      });
-    }
-    return names;
-  };
+  const navigation = useNavigation();
 
   return (
     <View style={{ flex: 0 }}>
@@ -43,7 +36,7 @@ export default function ChemicalControlCard(props: IProps) {
       >
         {title}
       </PoppinText>
-      {chemicalControls.length > 0 && (
+      {chemicalControls.length > 1 && (
         <View style={styles.reminderContainer}>
           <Ionicons
             name="warning-outline"
@@ -73,6 +66,12 @@ export default function ChemicalControlCard(props: IProps) {
             containerStyle={{
               borderWidth: 1,
               borderRadius: 10,
+            }}
+            onPress={() => {
+              navigation.navigate("Instruction", {
+                instruction: data,
+                recommendation: recommendation,
+              });
             }}
           >
             <Avatar

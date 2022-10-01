@@ -34,7 +34,12 @@ import AgricultureNavigator from "./AgricultureNavigator";
 import LinkingConfiguration from "./LinkingConfiguration";
 import { AgriTypeDetailScreen, AgriTypeScreen } from "../screens/Agirculture";
 import { RecommendationScreen, SeasonScreen } from "../screens/Recommendation";
-import { InfestationScreen, TreatScreen } from "../screens/Infestation";
+import {
+  InfestationScreen,
+  InstructionScreen,
+  TreatScreen,
+} from "../screens/Infestation";
+import { handleGetNames } from "../utils/utls";
 
 export default function Navigation({
   colorScheme,
@@ -113,6 +118,13 @@ function RootNavigator() {
       <Stack.Screen name="Season" component={SeasonScreen} />
       <Stack.Screen name="Infestation" component={InfestationScreen} />
       <Stack.Screen name="Treat" component={TreatScreen} />
+      <Stack.Screen
+        name="Instruction"
+        component={InstructionScreen}
+        options={(data) => ({
+          title: handleGetNames(data.route.params.instruction.insecticides),
+        })}
+      />
 
       <Stack.Group screenOptions={{ presentation: "modal" }}>
         <Stack.Screen name="NotFound" component={ModalScreen} />

@@ -11,7 +11,7 @@ import {
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import Agriculture from "./models/Agriculture";
 import AgriType from "./models/AgriType";
-import Infestation from "./models/Infestation";
+import Infestation, { ChemicalControls } from "./models/Infestation";
 import Recommendation from "./models/Recommendation";
 
 declare global {
@@ -43,6 +43,10 @@ export type RootStackParamList = {
   };
   Treat: {
     infestation: Infestation;
+    recommendation: Recommendation;
+  };
+  Instruction: {
+    instruction: ChemicalControls;
     recommendation: Recommendation;
   };
 };
