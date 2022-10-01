@@ -4,6 +4,7 @@ import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { Avatar } from "react-native-elements";
 import { DefaultColor } from "../../constants/Colors";
+import NO_IMAGE from "../../constants/NoImage";
 import { Instruction } from "../../models/Infestation";
 import { PoppinText } from "../StyledText";
 
@@ -20,7 +21,12 @@ export default function InstructionCard(props: IProps) {
     <View style={styles.container}>
       <View style={styles.childContainer}>
         <Avatar
-          source={{ uri: instruction.icon_image }}
+          source={{
+            uri:
+              instruction.icon_image !== null
+                ? instruction.icon_image
+                : NO_IMAGE,
+          }}
           rounded
           size={"medium"}
           avatarStyle={{

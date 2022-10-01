@@ -4,6 +4,7 @@ import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { Avatar } from "react-native-elements";
 import { DefaultColor } from "../../constants/Colors";
+import NO_IMAGE from "../../constants/NoImage";
 import { SafetyPrecaution } from "../../models/Infestation";
 import { PoppinText } from "../StyledText";
 
@@ -20,7 +21,12 @@ export default function SafetyCard(props: IProps) {
     <View style={styles.container}>
       <View style={styles.childContainer}>
         <Avatar
-          source={{ uri: safetyPrecaution.icon_image }}
+          source={{
+            uri:
+              safetyPrecaution.icon_image !== null
+                ? safetyPrecaution.icon_image
+                : NO_IMAGE,
+          }}
           rounded
           size={"medium"}
           avatarStyle={{
