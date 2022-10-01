@@ -1,7 +1,7 @@
 import { RouteProp, useRoute } from "@react-navigation/native";
 import * as React from "react";
 import { useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { Pressable, StyleSheet, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import {
   ChemicalControlCard,
@@ -9,6 +9,7 @@ import {
 } from "../../components/Recommendation";
 import { PoppinText, PoppinTextBold } from "../../components/StyledText";
 import ViewWithLoading from "../../components/ViewWithLoading";
+import { DefaultColor } from "../../constants/Colors";
 import { RootStackParamList } from "../../types";
 
 type IType = {
@@ -41,8 +42,34 @@ export default function TreatScreen() {
           <ChemicalControlCard
             chemicalControls={infestation.chemical_controls}
             title="Chemical Controls"
+            recommendation={recommendation}
           />
         </ScrollView>
+        <View style={styles.rateContainer}>
+          <PoppinText style={{ fontFamily: "poppins-semibold" }}>
+            How useful did you find this information?
+          </PoppinText>
+          <View style={styles.rateChildContainer}>
+            <Pressable
+              style={styles.rateBtn}
+              android_ripple={{ color: DefaultColor.main }}
+            >
+              <PoppinText style={styles.iconSize}>😄</PoppinText>
+            </Pressable>
+            <Pressable
+              style={styles.rateBtn}
+              android_ripple={{ color: DefaultColor.main }}
+            >
+              <PoppinText style={styles.iconSize}>😐</PoppinText>
+            </Pressable>
+            <Pressable
+              style={styles.rateBtn}
+              android_ripple={{ color: DefaultColor.main }}
+            >
+              <PoppinText style={styles.iconSize}>🙁</PoppinText>
+            </Pressable>
+          </View>
+        </View>
       </View>
     </ViewWithLoading>
   );
@@ -52,5 +79,24 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
+  },
+  rateContainer: {
+    flex: 0,
+    padding: 10,
+    alignItems: "center",
+    width: "100%",
+  },
+  rateChildContainer: {
+    flex: 0,
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    alignItems: "flex-end",
+  },
+  rateBtn: {
+    flex: 0,
+  },
+  iconSize: {
+    fontSize: 35,
   },
 });

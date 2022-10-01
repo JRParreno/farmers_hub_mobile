@@ -1,3 +1,4 @@
+import AgriType from "./AgriType";
 import Author from "./Author";
 import Infestation from "./Infestation";
 import { RecommendationSeason } from "./Season";
@@ -10,6 +11,7 @@ export default class Recommendation {
     link: string;
     seasons: Array<RecommendationSeason>;
     infestations: Array<Infestation>;
+  agriculture_type: AgriType;
 
   constructor(
     pk: string, 
@@ -18,7 +20,8 @@ export default class Recommendation {
     rate: number, 
     link: string, 
     seasons: Array<RecommendationSeason>, 
-    infestations: Array<Infestation>
+    infestations: Array<Infestation>,
+    agriculture_type: AgriType
 ) {
     this.pk = pk
     this.title = title
@@ -27,5 +30,6 @@ export default class Recommendation {
     this.link = link
     this.seasons = seasons
     this.infestations = infestations
+    this.agriculture_type = agriculture_type
   }
 }
