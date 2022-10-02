@@ -42,3 +42,14 @@ export async function fetchRecommendation(props: IProps) {
         throw error;
     });
 }
+
+export async function rateRecommendation(pk: string, rate: number) {
+    const data = {
+        "my_rate": rate
+    }
+    return await axios.patch(`${ApiConfig().apiUrl}/recommendation/rate/${pk}`, data).then(response => {
+        return "Your response has been submitted successfully";
+    }).catch((error: any) => {
+        throw error;
+    });
+}
