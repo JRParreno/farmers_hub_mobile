@@ -143,7 +143,7 @@ function RootNavigator() {
       <Stack.Screen
         name="PreventMeasures"
         component={PreventScreen}
-        options={{ title: "Prevent Measures" }}
+        options={{ title: "Preventive Measures" }}
       />
 
       <Stack.Screen

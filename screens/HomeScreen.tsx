@@ -72,8 +72,20 @@ export default function HomeScreen() {
   return (
     <ViewWithLoading loading={loading}>
       <View style={styles.container}>
-        <View style={{ flex: 1, marginTop: 20 }}>
+        <View
+          style={{
+            flex: 1,
+            marginTop: 20,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           <FlatList
+            columnWrapperStyle={{
+              flexWrap: "wrap",
+              justifyContent: "space-around",
+              marginBottom: 15,
+            }}
             data={agris}
             scrollsToTop={true}
             showsVerticalScrollIndicator={false}
@@ -88,6 +100,7 @@ export default function HomeScreen() {
               setRefreshing(true);
               handleGetAgris(1);
             }}
+            numColumns={2}
           />
         </View>
       </View>

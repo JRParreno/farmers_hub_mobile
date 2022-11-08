@@ -55,10 +55,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 0,
     height: Dimensions.get("screen").width * 0.45 + 30,
-    width: Dimensions.get("screen").width * 0.45,
+    width: Dimensions.get("screen").width * 0.4,
     padding: 10,
     borderWidth: 2,
     borderColor: DefaultColor.main,
     borderRadius: 20,
+    marginRight: 10,
   },
 });

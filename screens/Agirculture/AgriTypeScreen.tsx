@@ -145,22 +145,36 @@ export default function AgriTypeScreen() {
             </PoppinText>
           </View>
 
-          <FlatList
-            data={agris}
-            scrollsToTop={true}
-            showsVerticalScrollIndicator={false}
-            renderItem={_renderItem}
-            keyExtractor={(item) => item.pk}
-            onEndReached={() => {
-              let page = Number(numPage) + 1;
-              handleGetAgris(page);
+          <View
+            style={{
+              flex: 0,
+              width: "100%",
             }}
-            refreshing={refreshing}
-            onRefresh={() => {
-              setRefreshing(true);
-              handleGetAgris(1);
-            }}
-          />
+          >
+            <FlatList
+              columnWrapperStyle={{
+                flexWrap: "wrap",
+                justifyContent: "space-around",
+                marginBottom: 15,
+              }}
+              centerContent
+              data={agris}
+              scrollsToTop={true}
+              showsVerticalScrollIndicator={false}
+              renderItem={_renderItem}
+              keyExtractor={(item) => item.pk}
+              onEndReached={() => {
+                let page = Number(numPage) + 1;
+                handleGetAgris(page);
+              }}
+              refreshing={refreshing}
+              onRefresh={() => {
+                setRefreshing(true);
+                handleGetAgris(1);
+              }}
+              numColumns={2}
+            />
+          </View>
         </View>
       </View>
     </ViewWithLoading>
