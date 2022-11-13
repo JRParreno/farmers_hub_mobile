@@ -66,6 +66,9 @@ export default function ChemicalControlCard(props: IProps) {
               borderWidth: 1,
               borderRadius: 10,
             }}
+            style={{
+              marginBottom: 10
+            }}
             onPress={() => {
               navigation.navigate("Instruction", {
                 instruction: data,

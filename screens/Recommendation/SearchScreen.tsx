@@ -6,6 +6,7 @@ import { ListItem, SearchBar } from "react-native-elements";
 import { PoppinText } from "../../components/StyledText";
 import ViewWithLoading from "../../components/ViewWithLoading";
 import { DefaultColor } from "../../constants/Colors";
+import { getData, storeData } from "../../database/StoreData";
 import Recommendation from "../../models/Recommendation";
 import { fetchRecommendation } from "../../repository/AgriRepository";
 import { ErrorMessage } from "../../utils/ErrorMessage";
@@ -13,6 +14,7 @@ import { ErrorMessage } from "../../utils/ErrorMessage";
 export default function SearchScreen() {
   const navigation = useNavigation();
   const [loading, setLoading] = useState<boolean>(true);
+  const [isInitialized, setIsInitialized] = useState<boolean>(false);
   const [query, setQuery] = useState<string>("");
   const [recommendation, setRecommendation] =
     useState<Array<Recommendation> | null>(null);
@@ -76,14 +78,31 @@ export default function SearchScreen() {
     );
   };
 
+  // const _renderRecentSearches = () => {
+  //   // const recentSearches = await getData('recent_seaches');
+  //   return <React.Fragment>
+  //     {!isInitialized ? <View style={{ flex: 0, }}>
+  //       <PoppinText style={{ fontFamily: 'poppins-semibold', fontSize: 18 }}>Recent Searches</PoppinText>
+  //       <ListItem bottomDivider hasTVPreferredFocus={undefined} tvParallaxProperties={undefined}>
+  //         <ListItem.Content>
+  //           <ListItem.Title>Recent 1</ListItem.Title>
+  //         </ListItem.Content>
+  //       </ListItem>
+  //     </View> : <View />}
+  //   </React.Fragment>;
+  // }
+
   useFocusEffect(
     useCallback(() => {
       handleGetRecommendation(1);
     }, [])
   );
 
-  const handleSearch = (q?: string) => {
+  const handleSearch = async (q?: string) => {
     setLoading(true);
+    const seaches = []
+    await storeData("recent_seaches", q ? q : query);
+    setIsInitialized(true);
     handleGetRecommendation(1, q ? q : query);
   };
 
@@ -119,6 +138,7 @@ export default function SearchScreen() {
         <View style={{ flex: 1, marginTop: 20 }}>
           {recommendation && recommendation.length > 0 ? (
             <FlatList
+              // ListHeaderComponent={_renderRecentSearches}
               data={recommendation}
               scrollsToTop={true}
               showsVerticalScrollIndicator={false}
