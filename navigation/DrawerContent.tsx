@@ -60,7 +60,14 @@ const DrawerContent = (props: any) => {
                 <View style={[styles.userInfoSection, {
                     backgroundColor: props.state.index === props.state.routes.findIndex((e: any) => e.name === 'ProfileDrawer') ? DefaultColor.main : DefaultColor.main
                 }]}>
-                    <TouchableOpacity onPress={() => navigation.navigate('ProfileDrawer')}>
+                    <TouchableOpacity onPress={() => {
+                        if (userContext?.profile) {
+                            // navigate profile
+                            return;  
+                        } 
+                        // @ts-ignore
+                        return navigation.navigate('Login')
+                    }}>
                         <View style={{ flex: 1, flexDirection: 'row', marginTop: 15, alignItems: 'center' }}>
                             {userContext?.profile?.profilePhoto ?
                                 <Avatar

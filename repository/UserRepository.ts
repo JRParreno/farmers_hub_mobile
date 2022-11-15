@@ -73,9 +73,7 @@ export async function getProfile() {
                 data.user.mobile_number,
                 data.user.email,
                 data.user.address,
-                data.user.gender,
-                data.user.birthdate,
-                data.user.profile_picture ? (ApiConfig().media + data.user.profile_picture) : "",
+                data.user.profile_picture ? data.user.profile_picture : "",
             );
         })
         .catch((error: any) => {
@@ -170,9 +168,7 @@ export async function UpdateInformation(
                 data.user.mobile_number,
                 data.user.email,
                 data.user.address,
-                data.user.gender,
-                data.user.birthdate,
-                data.user.profile_picture ? (ApiConfig().media + data.user.profile_picture) : "",
+                data.user.profile_picture ? data.user.profile_picture : "",
             );
         })
         .catch((error: any) => {

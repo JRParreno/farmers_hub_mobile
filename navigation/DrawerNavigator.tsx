@@ -6,6 +6,7 @@ import { DefaultColor } from '../constants/Colors';
 import { AgriTypeScreen, AgriTypeDetailScreen } from '../screens/Agirculture';
 import HomeScreen from '../screens/HomeScreen';
 import { InfestationScreen, TreatScreen, InstructionScreen } from '../screens/Infestation';
+import { LoginScreen } from '../screens/Login';
 import PreventScreen from '../screens/PreventMeasures/PreventScreen';
 import { RecommendationScreen, SeasonScreen, SearchScreen } from '../screens/Recommendation';
 import { DrawerStackParamList } from '../types';
@@ -71,6 +72,13 @@ export default function MyDrawer() {
       <Drawer.Screen
         name="Instruction"
         component={InstructionScreen}
+        options={(data) => ({
+          title:  "",
+        })}
+      />
+      <Drawer.Screen
+        name="Login"
+        component={LoginScreen}
         options={(data) => ({
           title:  "",
         })}

@@ -62,6 +62,7 @@ export type DrawerStackParamList = {
     infestation: Infestation;
     recommendation: Recommendation;
   };
+  Login: undefined;
 };
 
 
