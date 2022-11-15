@@ -8,10 +8,10 @@ import { PoppinText } from "../../components/StyledText";
 import ViewWithLoading from "../../components/ViewWithLoading";
 import { DefaultColor } from "../../constants/Colors";
 import { PreventMeasure } from "../../models/Infestation";
-import { RootStackParamList } from "../../types";
+import { DrawerStackParamList } from "../../types";
 
 type IType = {
-  params: RootStackParamList["PreventMeasures"];
+  params: DrawerStackParamList["PreventMeasures"];
 };
 
 export default function PreventScreen() {

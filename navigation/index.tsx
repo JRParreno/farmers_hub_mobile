@@ -18,33 +18,16 @@ import { useCallback, useState } from "react";
 import {
   ColorSchemeName,
   Pressable,
-  View,
-  Image,
-  ActivityIndicator,
 } from "react-native";
 import Loader from "../components/Loader";
-import { DefaultColor } from "../constants/Colors";
 import { getData } from "../database/StoreData";
-import HomeScreen from "../screens/HomeScreen";
 import LandingScreen from "../screens/LandingScreen";
 
 import ModalScreen from "../screens/ModalScreen";
 import { RootStackParamList } from "../types";
-import AgricultureNavigator from "./AgricultureNavigator";
 import LinkingConfiguration from "./LinkingConfiguration";
-import { AgriTypeDetailScreen, AgriTypeScreen } from "../screens/Agirculture";
-import {
-  RecommendationScreen,
-  SearchScreen,
-  SeasonScreen,
-} from "../screens/Recommendation";
-import {
-  InfestationScreen,
-  InstructionScreen,
-  TreatScreen,
-} from "../screens/Infestation";
-import { handleGetNames } from "../utils/utls";
-import PreventScreen from "../screens/PreventMeasures/PreventScreen";
+
+import MyDrawer from "./DrawerNavigator";
 
 export default function Navigation({
   colorScheme,
@@ -103,57 +86,14 @@ function RootNavigator() {
     >
       <Stack.Screen
         name="Root"
-        component={HomeScreen}
-        options={(nav) => ({
-          title: "",
-          headerLeft: () => (
-            <Pressable
-              onPress={() => {
-                nav.navigation.navigate("GeneralSearch");
-              }}
-            >
-              <Ionicons name="search" size={24} />
-            </Pressable>
-          ),
-        })}
+        component={MyDrawer}
+        options={{ title: "", headerShown: false }}
       />
       <Stack.Screen
         name="Landing"
         component={LandingScreen}
         options={{ title: "", headerShown: false }}
       />
-      <Stack.Screen name="AgicultureTypes" component={AgriTypeScreen} />
-      <Stack.Screen
-        name="AgicultureTypeDetail"
-        component={AgriTypeDetailScreen}
-      />
-      <Stack.Screen
-        name="RecommendationList"
-        component={RecommendationScreen}
-      />
-      <Stack.Screen name="Season" component={SeasonScreen} />
-      <Stack.Screen name="Infestation" component={InfestationScreen} />
-      <Stack.Screen name="Treat" component={TreatScreen} />
-      <Stack.Screen
-        name="GeneralSearch"
-        component={SearchScreen}
-        options={{ title: "Search Recommendation" }}
-      />
-
-      <Stack.Screen
-        name="PreventMeasures"
-        component={PreventScreen}
-        options={{ title: "Preventive Measures" }}
-      />
-
-      <Stack.Screen
-        name="Instruction"
-        component={InstructionScreen}
-        options={(data) => ({
-          title: handleGetNames(data.route.params.instruction.insecticides),
-        })}
-      />
-
       <Stack.Group screenOptions={{ presentation: "modal" }}>
         <Stack.Screen name="NotFound" component={ModalScreen} />
       </Stack.Group>

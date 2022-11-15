@@ -14,11 +14,11 @@ import ViewWithLoading from "../../components/ViewWithLoading";
 import { DefaultColor } from "../../constants/Colors";
 import Recommendation from "../../models/Recommendation";
 import { fetchRecommendation } from "../../repository/AgriRepository";
-import { RootStackParamList } from "../../types";
+import { DrawerStackParamList } from "../../types";
 import { ErrorMessage } from "../../utils/ErrorMessage";
 
 type IType = {
-  params: RootStackParamList["RecommendationList"];
+  params: DrawerStackParamList["RecommendationList"];
 };
 
 export default function RecommendationScreen() {

@@ -3,10 +3,10 @@ import * as React from "react";
 import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import ViewWithLoading from "../../components/ViewWithLoading";
-import { RootStackParamList } from "../../types";
+import { DrawerStackParamList } from "../../types";
 
 type IType = {
-  params: RootStackParamList["AgicultureTypeDetail"];
+  params: DrawerStackParamList["AgicultureTypeDetail"];
 };
 
 export default function AgriTypeDetailScreen() {

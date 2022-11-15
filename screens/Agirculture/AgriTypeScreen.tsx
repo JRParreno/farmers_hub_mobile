@@ -14,11 +14,11 @@ import ViewWithLoading from "../../components/ViewWithLoading";
 import { DefaultColor } from "../../constants/Colors";
 import AgriType from "../../models/AgriType";
 import { fetchAgricultureTypes } from "../../repository/AgriRepository";
-import { RootStackParamList } from "../../types";
+import { DrawerStackParamList } from "../../types";
 import { ErrorMessage } from "../../utils/ErrorMessage";
 
 type IType = {
-  params: RootStackParamList["AgicultureTypes"];
+  params: DrawerStackParamList["AgicultureTypes"];
 };
 
 export default function AgriTypeScreen() {

@@ -1,7 +1,7 @@
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import * as React from "react";
 import { useState } from "react";
-import { Pressable, ScrollView, StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 import { SafetyCard, InstructionCard } from "../../components/Instructions";
 import LinkBtn from "../../components/LinkBtn";
 import { PoppinText } from "../../components/StyledText";
@@ -9,10 +9,10 @@ import { TipCard } from "../../components/Tip";
 import ViewWithLoading from "../../components/ViewWithLoading";
 import { DefaultColor } from "../../constants/Colors";
 import { Instruction, SafetyPrecaution } from "../../models/Infestation";
-import { RootStackParamList } from "../../types";
+import { DrawerStackParamList } from "../../types";
 
 type IType = {
-  params: RootStackParamList["Instruction"];
+  params: DrawerStackParamList["Instruction"];
 };
 
 export default function InstructionScreen() {

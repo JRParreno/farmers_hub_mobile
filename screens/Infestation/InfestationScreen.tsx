@@ -9,10 +9,10 @@ import { InsectInfestationCard } from "../../components/Insect";
 import { PoppinTextBold } from "../../components/StyledText";
 import ViewWithLoading from "../../components/ViewWithLoading";
 import { DefaultColor } from "../../constants/Colors";
-import { RootStackParamList } from "../../types";
+import { DrawerStackParamList } from "../../types";
 
 type IType = {
-  params: RootStackParamList["Infestation"];
+  params: DrawerStackParamList["Infestation"];
 };
 
 export default function InfestationScreen() {

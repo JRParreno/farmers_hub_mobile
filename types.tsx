@@ -28,6 +28,11 @@ export type RootStackParamList = {
   Agriculture: undefined;
   NotFound: undefined;
   Landing: undefined;
+};
+
+export type DrawerStackParamList = {
+  Home: undefined;
+  Agriculture: undefined;
   GeneralSearch: undefined;
   AgicultureTypes: {
     agriculture: Agriculture;
@@ -58,6 +63,8 @@ export type RootStackParamList = {
     recommendation: Recommendation;
   };
 };
+
+
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
   NativeStackScreenProps<RootStackParamList, Screen>;

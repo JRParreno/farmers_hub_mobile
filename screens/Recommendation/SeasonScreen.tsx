@@ -19,10 +19,10 @@ import ViewWithLoading from "../../components/ViewWithLoading";
 import { DefaultColor } from "../../constants/Colors";
 import Infestation from "../../models/Infestation";
 import { RecommendationSeason } from "../../models/Season";
-import { RootStackParamList } from "../../types";
+import { DrawerStackParamList } from "../../types";
 
 type IType = {
-  params: RootStackParamList["Season"];
+  params: DrawerStackParamList["Season"];
 };
 
 export default function SeasonScreen() {
