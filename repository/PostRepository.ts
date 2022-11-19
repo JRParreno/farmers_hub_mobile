@@ -89,3 +89,17 @@ export async function addCommentPost(postId: string, description: string) {
         throw error;
     });
 }
+
+export async function createPost(photo: string, description: string) {
+    const postData = {
+        "image": photo,
+        "description": description
+    }
+    const url = `${ApiConfig().apiUrl}/post/create`;
+    return await apiInstance.post(url, postData).then(response => {
+        const data = response.data;
+        return data;
+    }).catch((error: any) => {
+        throw error;
+    });
+}

@@ -1,8 +1,8 @@
 import { Ionicons } from "@expo/vector-icons";
-import { useFocusEffect } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import * as React from "react";
 import { useCallback, useState } from "react";
-import { FlatList, StyleSheet, View } from "react-native";
+import { FlatList, Pressable, StyleSheet, View } from "react-native";
 import { PostCard } from "../../components/Post";
 import { PoppinText } from "../../components/StyledText";
 import ViewWithLoading from "../../components/ViewWithLoading";
@@ -12,6 +12,7 @@ import { fetchPostList } from "../../repository/PostRepository";
 import { ErrorMessage } from "../../utils/ErrorMessage";
 
 export default function CommunityScreen() {
+    const navigation = useNavigation();
     const [loading, setLoading] = useState<boolean>(true);
     const [posts, setPosts] =
         useState<Array<Post> | null>(null);
@@ -67,20 +68,27 @@ export default function CommunityScreen() {
 
     return <ViewWithLoading loading={loading}>
         <View style={styles.container}>
-            <View style={styles.headerContainer}>
-                <View style={{ flex: 0, borderWidth: 2, padding: 10, borderColor: DefaultColor.main, borderRadius: 3 }}>
-                    <PoppinText
-                        style={{
-                            fontFamily: "poppins-semibold",
-                            fontSize: 18
-                        }}
-                    >Hello! What's on your mind?</PoppinText>
+            <Pressable
+                onPress={() => {
+                    // @ts-ignore
+                    navigation.navigate("PostCreate");
+                }}
+            >
+                <View style={styles.headerContainer}>
+                    <View style={{ flex: 0, borderWidth: 2, padding: 10, borderColor: DefaultColor.main, borderRadius: 3 }}>
+                        <PoppinText
+                            style={{
+                                fontFamily: "poppins-semibold",
+                                fontSize: 18
+                            }}
+                        >Hello! What's on your mind?</PoppinText>
+                    </View>
+                    <Ionicons
+                        name="camera-outline"
+                        size={42}
+                    />
                 </View>
-                <Ionicons
-                    name="camera-outline"
-                    size={42}
-                />
-            </View>
+            </Pressable>
             {posts && posts.length > 0 && (
                 <FlatList
                     data={posts}

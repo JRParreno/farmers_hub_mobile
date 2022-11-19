@@ -74,7 +74,8 @@ export type CommunityStackParamLst = {
   PostList: undefined;
   Post: {
     post: Post;
-  }
+  };
+  PostCreate: undefined;
 }
 
 
