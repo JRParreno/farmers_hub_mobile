@@ -14,6 +14,7 @@ import { DrawerStackParamList } from '../types';
 import { handleGetNames } from '../utils/utls';
 import CommunityNavigator from './CommunityNavigator';
 import DrawerContent from './DrawerContent';
+import MainStackNavigator from './MainStackNavigator';
 
 const Drawer = createDrawerNavigator<DrawerStackParamList>();
 
@@ -22,13 +23,14 @@ export default function MyDrawer() {
     <Drawer.Navigator
       screenOptions={(nav,) => ({
         title: "",
+        headerShown: false,
         headerLeft: () => (
           <Pressable
             onPress={() => {
               nav.navigation.navigate("GeneralSearch");
             }}
           >
-            <Ionicons name="search" size={24} />
+            <Ionicons name="search-outline" size={24} />
           </Pressable>
         ),
         headerRight: () => (
@@ -46,35 +48,9 @@ export default function MyDrawer() {
       })}
       drawerContent={(props) => <DrawerContent {...props} />}
     >
-      <Drawer.Screen name="Home" component={HomeScreen} />
-
-      <Drawer.Screen name="AgicultureTypes" component={AgriTypeScreen} />
       <Drawer.Screen
-        name="AgicultureTypeDetail"
-        component={AgriTypeDetailScreen}
-      />
-      <Drawer.Screen
-        name="RecommendationList"
-        component={RecommendationScreen}
-      />
-      <Drawer.Screen name="Season" component={SeasonScreen} />
-      <Drawer.Screen name="Infestation" component={InfestationScreen} />
-      <Drawer.Screen name="Treat" component={TreatScreen} />
-      <Drawer.Screen
-        name="GeneralSearch"
-        component={SearchScreen}
-        options={{ title: "Search Recommendation" }}
-      />
-
-      <Drawer.Screen
-        name="PreventMeasures"
-        component={PreventScreen}
-        options={{ title: "Preventive Measures" }}
-      />
-
-      <Drawer.Screen
-        name="Instruction"
-        component={InstructionScreen}
+        name="Home"
+        component={MainStackNavigator}
         options={(data) => ({
           title: "",
         })}
@@ -98,6 +74,7 @@ export default function MyDrawer() {
         component={CommunityNavigator}
         options={(data) => ({
           title: "Community",
+          headerShown: true
         })}
       />
     </Drawer.Navigator>

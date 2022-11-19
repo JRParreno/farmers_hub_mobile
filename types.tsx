@@ -34,6 +34,22 @@ export type RootStackParamList = {
 
 export type DrawerStackParamList = {
   Home: undefined;
+  Login: undefined;
+  Register: undefined;
+  Community: undefined;
+};
+
+
+export type CommunityStackParamLst = {
+  PostList: undefined;
+  Post: {
+    post: Post;
+  };
+  PostCreate: undefined;
+}
+
+export type MainStackParamLst = {
+  HomeMain: undefined;
   Agriculture: undefined;
   GeneralSearch: undefined;
   AgicultureTypes: {
@@ -64,18 +80,7 @@ export type DrawerStackParamList = {
     infestation: Infestation;
     recommendation: Recommendation;
   };
-  Login: undefined;
-  Register: undefined;
-  Community: undefined;
-};
 
-
-export type CommunityStackParamLst = {
-  PostList: undefined;
-  Post: {
-    post: Post;
-  };
-  PostCreate: undefined;
 }
 
 

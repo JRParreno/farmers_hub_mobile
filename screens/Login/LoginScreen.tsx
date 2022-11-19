@@ -28,7 +28,7 @@ export default function LoginScreen() {
   return (
     <ViewWithLoading loading={loading}>
       <View style={styles.container}>
-        <Header headerText={"Farmer Hub"} />
+        <Header headerText={"Farm Hub"} />
         <LoginForm setLoading={setLoading} />
       </View>
     </ViewWithLoading>
