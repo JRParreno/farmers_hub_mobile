@@ -26,7 +26,7 @@ export default function LandingScreen() {
             borderRadius: 20,
             padding: 10,
             margin: 20,
-            top: 30,
+            top: 60,
           }}
         >
           <PoppinText>

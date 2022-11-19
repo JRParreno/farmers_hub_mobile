@@ -3,6 +3,7 @@ import React from "react";
 import { View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import ProfileContextProvider from "./context/UserContext";
 
 import useCachedResources from "./hooks/useCachedResources";
 import useColorScheme from "./hooks/useColorScheme";
@@ -18,8 +19,10 @@ export default function App() {
         <View></View>
       ) : (
         <SafeAreaProvider>
-          <Navigation colorScheme={colorScheme} />
-          <StatusBar />
+          <ProfileContextProvider>
+            <Navigation colorScheme={colorScheme} />
+            <StatusBar />
+          </ProfileContextProvider>
         </SafeAreaProvider>
       )}
     </GestureHandlerRootView>

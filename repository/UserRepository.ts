@@ -67,13 +67,14 @@ export async function getProfile() {
         .then((response: any) => {
             const data = response.data;
             return new Profile(
-                data.user.pk,
-                data.user.first_name,
-                data.user.last_name,
-                data.user.mobile_number,
-                data.user.email,
-                data.user.address,
-                data.user.profile_picture ? data.user.profile_picture : "",
+                data.pk,
+                data.first_name,
+                data.last_name,
+                data.mobile_number,
+                data.email,
+                data.address,
+                data.username,
+                data.profile_picture ? data.user.profile_picture : "",
             );
         })
         .catch((error: any) => {

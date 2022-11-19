@@ -3,7 +3,7 @@ import Profile from "../models/Profile";
 
 type ProfileContextValue = {
     profile: Profile | null;
-    setProfile: (_: Profile) => void;
+    setProfile: (_: Profile | null) => void;
 }
 
 export const ProfileContext = createContext<ProfileContextValue | null>(null);

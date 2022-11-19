@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Alert,  StyleSheet, TouchableOpacity, View } from "react-native";
+import { Alert, StyleSheet, TouchableOpacity, View } from "react-native";
 import { useContext, useState } from "react";
 import { useNavigation } from "@react-navigation/core";
 import { Formik } from "formik";
@@ -45,7 +45,7 @@ export default function LoginForm(props: IProps) {
         login(`+63${mobile_number}`, password)
             .then((data: { accessToken: string, refreshToken: string, }) => {
                 storeNavigate(data);
-
+                handleGetProfile();
             })
             .catch((error: any) => {
                 setLoading(false);
@@ -68,6 +68,8 @@ export default function LoginForm(props: IProps) {
             .then(async (data: Profile) => {
                 profileContext?.setProfile(data);
                 await storeData('user', JSON.stringify(data));
+                console.log(data);
+                navigation.dispatch(StackActions.replace("Root"));
             })
             .catch((error: any) => {
                 if (error.response) {
@@ -87,8 +89,8 @@ export default function LoginForm(props: IProps) {
             <View style={{ flex: 1, justifyContent: 'center' }}>
                 <Formik
                     initialValues={{
-                        mobile_number: '',
-                        password: ''
+                        mobile_number: '9321764095',
+                        password: '2020Rtutest@'
                     }}
                     validationSchema={loginSchema}
                     onSubmit={async (values, actions) => {

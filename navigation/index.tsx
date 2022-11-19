@@ -14,13 +14,13 @@ import {
 } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as React from "react";
-import { useCallback, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 import {
   ColorSchemeName,
   Pressable,
 } from "react-native";
 import Loader from "../components/Loader";
-import { getData } from "../database/StoreData";
+import { getData, storeData } from "../database/StoreData";
 import LandingScreen from "../screens/LandingScreen";
 
 import ModalScreen from "../screens/ModalScreen";
@@ -28,6 +28,10 @@ import { RootStackParamList } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
 
 import MyDrawer from "./DrawerNavigator";
+import { getProfile } from "../repository/UserRepository";
+import Profile from "../models/Profile";
+import { ErrorMessage } from "../utils/ErrorMessage";
+import { ProfileContext } from "../context/UserContext";
 
 export default function Navigation({
   colorScheme,
@@ -60,9 +64,47 @@ function RootNavigator() {
     setInitialized(true);
   };
 
+  const [loading, setLoading] = useState(true);
+
+  const [isLogged, setIsLogged] = useState(true);
+  const profileContext = useContext(ProfileContext);
+
+  const checkToken = async () => {
+    setLoading(true);
+    const accessToken = await getData("accessToken");
+    const refreshToken = await getData("refreshToken");
+    const user = await getData("user");
+
+    if (accessToken && refreshToken && user) {
+      profileContext?.setProfile(JSON.parse(user));
+      handleGetProfile();
+    } else {
+      await AsyncStorage.multiRemove(["accessToken", "refreshToken", "user"]);
+      setIsLogged(false);
+      setLoading(false);
+    }
+    checkSkipped();
+  };
+
+  const handleGetProfile = () => {
+    getProfile()
+      .then(async (data: Profile) => {
+        profileContext?.setProfile(data);
+        await storeData("user", JSON.stringify(data));
+      })
+      .catch((error: any) => {
+        ErrorMessage(error);
+      })
+      .finally(() => {
+        setIsLogged(false);
+        setLoading(false);
+      });
+  };
+
+
   useFocusEffect(
     useCallback(() => {
-      checkSkipped();
+      checkToken();
     }, [])
   );
 

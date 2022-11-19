@@ -28,7 +28,7 @@ const DrawerContent = (props: any) => {
 
 
     const handleLogout = async () => {
-        Alert.alert("Farmers Hub", "Are you sure you want to logout?",
+        Alert.alert("Farm Hub", "Are you sure you want to logout?",
             [
                 {
                     text: 'Cancel',
@@ -46,7 +46,8 @@ const DrawerContent = (props: any) => {
 
     const handleProceedLogout = async () => {
         await AsyncStorage.multiRemove(['accessToken', 'refreshToken', 'user']).finally(() => {
-            navigation.dispatch(StackActions.replace('Home'));
+            userContext?.setProfile(null);
+            navigation.dispatch(StackActions.replace('Root'));
         });
     }
 
@@ -63,8 +64,8 @@ const DrawerContent = (props: any) => {
                     <TouchableOpacity onPress={() => {
                         if (userContext?.profile) {
                             // navigate profile
-                            return;  
-                        } 
+                            return;
+                        }
                         // @ts-ignore
                         return navigation.navigate('Login')
                     }}>
@@ -102,30 +103,30 @@ const DrawerContent = (props: any) => {
                 <Drawer.Section style={styles.drawerSection}>
                     {drawerData.map((data) => {
                         if (data.name === "Community") {
-                            if (userContext?.profile){
-                           return <View key={data.name}>
-                            <DrawerItem
-                                icon={({ color, size }) => (
-                                    <Ionicons
-                                        name={data.icon as any}
-                                        color={props.state.index === props.state.routes.findIndex((e: any) => e.name === data.screen) ? DefaultColor.white : DefaultColor.main}
-                                        size={30}
+                            if (userContext?.profile) {
+                                return <View key={data.name}>
+                                    <DrawerItem
+                                        icon={({ color, size }) => (
+                                            <Ionicons
+                                                name={data.icon as any}
+                                                color={props.state.index === props.state.routes.findIndex((e: any) => e.name === data.screen) ? DefaultColor.white : DefaultColor.main}
+                                                size={30}
+                                            />
+                                        )}
+                                        label={data.name}
+                                        onPress={() => {
+                                            // Navigate Community
+
+                                        }}
+                                        labelStyle={{ marginLeft: data.icon === 'bike-fast' ? 3 : 0, fontFamily: 'poppins-regular', fontSize: 14, color: props.state.index === props.state.routes.findIndex((e: any) => e.name === data.screen) ? DefaultColor.white : DefaultColor.black }}
+                                        focused={props.state.index === props.state.routes.findIndex((e: any) => e.name === data.screen)}
+                                        activeBackgroundColor={props.state.index === props.state.routes.findIndex((e: any) => e.name === data.screen) ? DefaultColor.main : undefined}
                                     />
-                                )}
-                                label={data.name}
-                                onPress={() => {
-                                        // Navigate Community
-                                    
-                                }}
-                                labelStyle={{ marginLeft: data.icon === 'bike-fast' ? 3 : 0, fontFamily: 'poppins-regular', fontSize: 14, color: props.state.index === props.state.routes.findIndex((e: any) => e.name === data.screen) ? DefaultColor.white : DefaultColor.black }}
-                                focused={props.state.index === props.state.routes.findIndex((e: any) => e.name === data.screen)}
-                                activeBackgroundColor={props.state.index === props.state.routes.findIndex((e: any) => e.name === data.screen) ? DefaultColor.main : undefined}
-                            />
-                           </View>
+                                </View>
                             } else {
-                                return <View />;
-                                }
-                        } 
+                                return <View key={data.name} />;
+                            }
+                        }
                         return <View key={data.name}>
                             <DrawerItem
                                 icon={({ color, size }) => (
@@ -138,9 +139,9 @@ const DrawerContent = (props: any) => {
                                 label={data.name}
                                 onPress={() => {
                                     if (data.name === 'Help') {
-                                        Alert.alert("Farmers hub", "Help");
+                                        Alert.alert("Farm Hub", "Help");
                                     } else if (data.name === 'Privacy Policy') {
-                                        Alert.alert("Farmers hub", "Privacy Policy");
+                                        Alert.alert("Farm Hub", "Privacy Policy");
                                     } else {
                                         navigation.navigate(data.screen)
                                     }
@@ -154,39 +155,39 @@ const DrawerContent = (props: any) => {
                 </Drawer.Section>
             </ScrollView>
             {userContext?.profile ?
-            <Drawer.Section style={styles.bottomDrawerSection}>
-            <DrawerItem
-                icon={({ color, size }) => (
-                    <Ionicons
-                        name="log-out"
-                        color={DefaultColor.main}
-                        size={30}
+                <Drawer.Section style={styles.bottomDrawerSection}>
+                    <DrawerItem
+                        icon={({ color, size }) => (
+                            <Ionicons
+                                name="log-out"
+                                color={DefaultColor.main}
+                                size={30}
+                            />
+                        )}
+                        label="Log Out"
+                        onPress={handleLogout}
+                        labelStyle={{ fontFamily: 'poppins-regular', fontSize: 14, color: DefaultColor.black }}
                     />
-                )}
-                label="Log Out"
-                onPress={handleLogout}
-                labelStyle={{ fontFamily: 'poppins-regular', fontSize: 14, color: DefaultColor.black }}
-            />
                 </Drawer.Section>
                 :
                 <Drawer.Section style={styles.bottomDrawerSection}>
-            <DrawerItem
-                icon={({ color, size }) => (
-                    <Ionicons
-                        name="people"
-                        color={DefaultColor.main}
-                        size={30}
-                    />
-                )}
-                label="Join our community"
+                    <DrawerItem
+                        icon={({ color, size }) => (
+                            <Ionicons
+                                name="people"
+                                color={DefaultColor.main}
+                                size={30}
+                            />
+                        )}
+                        label="Join our community"
                         onPress={() => {
-                    // REGISTER
-                }}
-                labelStyle={{ fontFamily: 'poppins-regular', fontSize: 14, color: DefaultColor.black }}
-            />
-        </Drawer.Section>
+                            // REGISTER
+                        }}
+                        labelStyle={{ fontFamily: 'poppins-regular', fontSize: 14, color: DefaultColor.black }}
+                    />
+                </Drawer.Section>
             }
-            
+
         </View>
     );
 };
