@@ -88,8 +88,8 @@ export default function LoginForm(props: IProps) {
             <View style={{ flex: 1, justifyContent: 'center' }}>
                 <Formik
                     initialValues={{
-                        mobile_number: '9321764095',
-                        password: '2020Rtutest@'
+                        mobile_number: '',
+                        password: ''
                     }}
                     validationSchema={loginSchema}
                     onSubmit={async (values, actions) => {
