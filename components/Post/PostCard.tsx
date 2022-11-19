@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState } from "react";
-import { ActivityIndicator, StyleSheet, View } from "react-native";
+import { ActivityIndicator, StyleSheet, TouchableOpacity, View } from "react-native";
 import { DefaultColor } from "../../constants/Colors";
 import Post from "../../models/Post";
 import moment from "moment";
@@ -8,56 +8,68 @@ import PostHeader from "./PostHeader";
 import { PoppinText } from "../StyledText";
 import { Image } from "react-native-elements";
 import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 interface IProps {
     post: Post;
+    hideBottom?: boolean;
 }
 
 export default function PostCard(props: IProps) {
     const { commentTotal, dateUpdated, description, image, pk, profile } = props.post;
     const { email, firstName, getFullName, lastName, mobileNumber, username, profilePhoto } = profile;
+    const navigation = useNavigation();
 
     return <View style={styles.container}>
         <PostHeader
             dateUpdate={dateUpdated}
             profile={profile}
         />
-        <View style={[styles.descripContainer, image ? { height: 200 } : {}]}>
-            <PoppinText>
-                {description}
-            </PoppinText>
-            {
-                image && <Image
-                    resizeMode="cover"
-                    source={{ uri: image }}
-                    PlaceholderContent={<ActivityIndicator />}
-                    height={200}
-                    width={"100%"}
-                    containerStyle={{
-                        flex: 1,
-                        marginTop: 10,
-                        borderWidth: 1,
-                        borderColor: DefaultColor.white,
-                        borderRadius: 10,
-                        elevation: 4,
-                        shadowColor: '#000',
-                        shadowOffset: { width: 0, height: 2 },
-                        shadowOpacity: 0.8,
-                        shadowRadius: 2,
-                    }}
-                />
-            }
-        </View>
-        <View style={styles.bottomContainer}>
-            <Ionicons
+        <TouchableOpacity
+            onPress={() => {
+                // @ts-ignore
+                navigation.navigate("Post", { post: props.post });
+            }}
+        >
+            <View style={[styles.descripContainer, image ? { height: 200 } : {}]}>
+                <PoppinText>
+                    {description}
+                </PoppinText>
+                {
+                    image && <Image
+                        resizeMode="cover"
+                        source={{ uri: image }}
+                        PlaceholderContent={<ActivityIndicator />}
+                        height={200}
+                        width={"100%"}
+                        containerStyle={{
+                            flex: 1,
+                            marginTop: 10,
+                            borderWidth: 1,
+                            borderColor: DefaultColor.white,
+                            borderRadius: 10,
+                            elevation: 4,
+                            shadowColor: '#000',
+                            shadowOffset: { width: 0, height: 2 },
+                            shadowOpacity: 0.8,
+                            shadowRadius: 2,
+                        }}
+                    />
+                }
+            </View>
+        </TouchableOpacity>
+        {props.hideBottom === undefined &&
+            <View style={styles.bottomContainer}>
+                <Ionicons
 
-                name="chatbox-ellipses-outline"
-                size={24}
-            />
-            <PoppinText>
-                {commentTotal} comment {commentTotal > 1 ? "s" : ""}
-            </PoppinText>
-        </View>
+                    name="chatbox-ellipses-outline"
+                    size={24}
+                />
+                <PoppinText>
+                    {commentTotal} comment {commentTotal > 1 ? "s" : ""}
+                </PoppinText>
+            </View>
+        }
     </View>
 }
 

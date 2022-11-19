@@ -58,3 +58,34 @@ export async function fetchCommentList(pk: string, page: string) {
         throw error;
     });
 }
+
+export async function addCommentPost(postId: string, description: string) {
+    const postData = {
+        "post": postId,
+        "description": description
+    }
+
+    const url = `${ApiConfig().apiUrl}/comment/create`;
+    return await apiInstance.post(url, postData).then(response => {
+        const data = response.data;
+        return new Comment(
+            data.pk,
+            data.post,
+            new Profile(
+                data.profile.user.pk,
+                data.profile.user.username,
+                data.profile.user.email,
+                data.profile.user.first_name,
+                data.profile.user.last_name,
+                data.profile.user.first_name + " " + data.profile.user.last_name,
+                data.profile.user.username,
+                data.profile.profile_photo ? data.profile.profile_photo : "",
+            ),
+            data.description,
+            data.date_created,
+            data.date_updated,
+        );
+    }).catch((error: any) => {
+        throw error;
+    });
+}

@@ -13,7 +13,6 @@ import { ErrorMessage } from "../../utils/ErrorMessage";
 
 export default function CommunityScreen() {
     const [loading, setLoading] = useState<boolean>(true);
-    const [query, setQuery] = useState<string>("");
     const [posts, setPosts] =
         useState<Array<Post> | null>(null);
     const [numPage, setNumPage] = useState("1");

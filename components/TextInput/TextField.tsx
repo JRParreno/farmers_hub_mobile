@@ -8,7 +8,7 @@ import { PoppinText } from "../StyledText";
 interface IProps {
     text: string;
     setText: (value: string) => void;
-    label: string;
+    label?: string;
     secureEntry?: boolean;
     multiline?: boolean;
     toggleEye?: () => void;
@@ -30,9 +30,11 @@ export default function TextField(props: IProps) {
 
     return (
         <View style={[styles.container, props.containerStyle]}>
-            <PoppinText style={styles.labelContainer}>
-                {props.label}
-            </PoppinText>
+            {props.label &&
+                <PoppinText style={styles.labelContainer}>
+                    {props.label}
+                </PoppinText>
+            }
             <Surface style={[styles.surfaceContainer, { borderColor: props.borderColor ? props.borderColor : DefaultColor.dark }]}>
                 <View style={styles.innerContainer}>
                     {props.phoneCode !== undefined &&
