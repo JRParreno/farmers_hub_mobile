@@ -9,16 +9,18 @@ import { InfestationScreen, TreatScreen, InstructionScreen } from '../screens/In
 import { LoginScreen } from '../screens/Login';
 import PreventScreen from '../screens/PreventMeasures/PreventScreen';
 import { RecommendationScreen, SeasonScreen, SearchScreen } from '../screens/Recommendation';
+import RegisterScreen from '../screens/Register/RegisterScreen';
 import { DrawerStackParamList } from '../types';
 import { handleGetNames } from '../utils/utls';
+import CommunityNavigator from './CommunityNavigator';
 import DrawerContent from './DrawerContent';
 
 const Drawer = createDrawerNavigator<DrawerStackParamList>();
 
 export default function MyDrawer() {
   return (
-      <Drawer.Navigator
-      screenOptions={(nav, ) => ({
+    <Drawer.Navigator
+      screenOptions={(nav,) => ({
         title: "",
         headerLeft: () => (
           <Pressable
@@ -38,14 +40,15 @@ export default function MyDrawer() {
             <Ionicons name="menu" size={24} />
           </Pressable>
         ),
-        sceneContainerStyle: { paddingHorizontal: 10, backgroundColor: DefaultColor.white },
+        headerLeftContainerStyle: { padding: 10 },
+        headerRightContainerStyle: { padding: 10 },
         drawerPosition: 'right'
       })}
       drawerContent={(props) => <DrawerContent {...props} />}
-      >
-          <Drawer.Screen name="Home" component={HomeScreen} />
-      
-          <Drawer.Screen name="AgicultureTypes" component={AgriTypeScreen} />
+    >
+      <Drawer.Screen name="Home" component={HomeScreen} />
+
+      <Drawer.Screen name="AgicultureTypes" component={AgriTypeScreen} />
       <Drawer.Screen
         name="AgicultureTypeDetail"
         component={AgriTypeDetailScreen}
@@ -73,14 +76,28 @@ export default function MyDrawer() {
         name="Instruction"
         component={InstructionScreen}
         options={(data) => ({
-          title:  "",
+          title: "",
         })}
       />
       <Drawer.Screen
         name="Login"
         component={LoginScreen}
         options={(data) => ({
-          title:  "",
+          title: "",
+        })}
+      />
+      <Drawer.Screen
+        name="Register"
+        component={RegisterScreen}
+        options={(data) => ({
+          title: "",
+        })}
+      />
+      <Drawer.Screen
+        name="Community"
+        component={CommunityNavigator}
+        options={(data) => ({
+          title: "Community",
         })}
       />
     </Drawer.Navigator>

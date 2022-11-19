@@ -68,7 +68,6 @@ export default function LoginForm(props: IProps) {
             .then(async (data: Profile) => {
                 profileContext?.setProfile(data);
                 await storeData('user', JSON.stringify(data));
-                console.log(data);
                 navigation.dispatch(StackActions.replace("Root"));
             })
             .catch((error: any) => {

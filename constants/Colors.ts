@@ -10,6 +10,7 @@ export const DefaultColor = {
   grey: '#E7E9EA',
   danger: '#FC0000',
   lightGreen: '#C5E0B4',
+  bgList: '#F1EAE0',
 }
 
 export default {

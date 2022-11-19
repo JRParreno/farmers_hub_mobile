@@ -15,11 +15,12 @@ import Infestation, {
   ChemicalControls,
   PreventMeasure,
 } from "./models/Infestation";
+import Post from "./models/Post";
 import Recommendation from "./models/Recommendation";
 
 declare global {
   namespace ReactNavigation {
-    interface RootParamList extends RootStackParamList {}
+    interface RootParamList extends RootStackParamList { }
   }
 }
 
@@ -28,6 +29,7 @@ export type RootStackParamList = {
   Agriculture: undefined;
   NotFound: undefined;
   Landing: undefined;
+  PrivacyPolicy: undefined;
 };
 
 export type DrawerStackParamList = {
@@ -63,8 +65,17 @@ export type DrawerStackParamList = {
     recommendation: Recommendation;
   };
   Login: undefined;
+  Register: undefined;
+  Community: undefined;
 };
 
+
+export type CommunityStackParamLst = {
+  PostList: undefined;
+  Post: {
+    post: Post;
+  }
+}
 
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =

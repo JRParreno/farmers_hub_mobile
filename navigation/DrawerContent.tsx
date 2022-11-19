@@ -115,10 +115,9 @@ const DrawerContent = (props: any) => {
                                         )}
                                         label={data.name}
                                         onPress={() => {
-                                            // Navigate Community
-
+                                            navigation.navigate(data.screen);
                                         }}
-                                        labelStyle={{ marginLeft: data.icon === 'bike-fast' ? 3 : 0, fontFamily: 'poppins-regular', fontSize: 14, color: props.state.index === props.state.routes.findIndex((e: any) => e.name === data.screen) ? DefaultColor.white : DefaultColor.black }}
+                                        labelStyle={{ fontFamily: 'poppins-regular', fontSize: 14, color: props.state.index === props.state.routes.findIndex((e: any) => e.name === data.screen) ? DefaultColor.white : DefaultColor.black }}
                                         focused={props.state.index === props.state.routes.findIndex((e: any) => e.name === data.screen)}
                                         activeBackgroundColor={props.state.index === props.state.routes.findIndex((e: any) => e.name === data.screen) ? DefaultColor.main : undefined}
                                     />
@@ -143,7 +142,7 @@ const DrawerContent = (props: any) => {
                                     } else if (data.name === 'Privacy Policy') {
                                         Alert.alert("Farm Hub", "Privacy Policy");
                                     } else {
-                                        navigation.navigate(data.screen)
+                                        navigation.navigate(data.screen);
                                     }
                                 }}
                                 labelStyle={{ marginLeft: data.icon === 'bike-fast' ? 3 : 0, fontFamily: 'poppins-regular', fontSize: 14, color: props.state.index === props.state.routes.findIndex((e: any) => e.name === data.screen) ? DefaultColor.white : DefaultColor.black }}
@@ -182,6 +181,7 @@ const DrawerContent = (props: any) => {
                         label="Join our community"
                         onPress={() => {
                             // REGISTER
+                            navigation.navigate("Register");
                         }}
                         labelStyle={{ fontFamily: 'poppins-regular', fontSize: 14, color: DefaultColor.black }}
                     />

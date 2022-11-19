@@ -30,12 +30,7 @@ export async function register(
     last_name: string,
     password: string,
     confirm_password: string,
-    address: string,
     mobile_number: string,
-    latitude: string,
-    longitude: string,
-    gender: string,
-    birthdate: string
 ) {
 
     const data = {
@@ -44,12 +39,7 @@ export async function register(
         last_name: last_name,
         password: password,
         confirm_password: confirm_password,
-        address: address,
         mobile_number: mobile_number,
-        latitude: latitude,
-        longitude: longitude,
-        gender: gender,
-        birthdate: birthdate
     };
 
     return await axios.post(`${ApiConfig().apiUrl}/register`, data).then(response => {
@@ -72,7 +62,7 @@ export async function getProfile() {
                 data.last_name,
                 data.mobile_number,
                 data.email,
-                data.address,
+                data.first_name + " " + data.last_name,
                 data.username,
                 data.profile_picture ? data.user.profile_picture : "",
             );

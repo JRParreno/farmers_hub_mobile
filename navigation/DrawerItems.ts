@@ -6,7 +6,7 @@ export const drawerData = [
     },
     {
         name: 'Community',
-        screen: 'HelpDrawer',
+        screen: 'Community',
         icon: 'people'
     },
     {

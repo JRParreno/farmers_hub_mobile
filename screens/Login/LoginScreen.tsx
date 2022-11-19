@@ -21,7 +21,7 @@ import Profile from "../../models/Profile";
 
 export default function LoginScreen() {
   const navigation = useNavigation();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
 
 
