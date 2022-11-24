@@ -64,10 +64,10 @@ const DrawerContent = (props: any) => {
                     <TouchableOpacity onPress={() => {
                         if (userContext?.profile) {
                             // navigate profile
-                            return;
+                            return navigation.navigate('ProfileDrawer');
                         }
                         // @ts-ignore
-                        return navigation.navigate('Login')
+                        return navigation.navigate('Login');
                     }}>
                         <View style={{ flex: 1, flexDirection: 'row', marginTop: 15, alignItems: 'center' }}>
                             {userContext?.profile?.profilePhoto ?

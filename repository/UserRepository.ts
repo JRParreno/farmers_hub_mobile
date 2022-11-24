@@ -58,12 +58,12 @@ export async function getProfile() {
             const data = response.data;
             return new Profile(
                 data.pk,
+                data.username,
+                data.email,
                 data.first_name,
                 data.last_name,
-                data.mobile_number,
-                data.email,
                 data.first_name + " " + data.last_name,
-                data.username,
+                data.mobile_number,
                 data.profile_picture ? data.user.profile_picture : "",
             );
         })
@@ -135,8 +135,6 @@ export async function UpdateInformation(
     firstName: string,
     lastName: string,
     mobile_number: string,
-    gender: string,
-    birthday: string
 ) {
     const data = {
         "user": {
@@ -145,21 +143,20 @@ export async function UpdateInformation(
             "last_name": lastName,
         },
         "mobile_number": mobile_number,
-        "gender": gender,
-        "birthdate": birthday
     }
 
     return await apiInstance.patch(`${ApiConfig().apiUrl}/profile`, data)
         .then((response: any) => {
             const data = response.data;
             return new Profile(
-                data.user.pk,
-                data.user.first_name,
-                data.user.last_name,
-                data.user.mobile_number,
-                data.user.email,
-                data.user.address,
-                data.user.profile_picture ? data.user.profile_picture : "",
+                data.pk,
+                data.username,
+                data.email,
+                data.first_name,
+                data.last_name,
+                data.first_name + " " + data.last_name,
+                data.mobile_number,
+                data.profile_picture ? data.user.profile_picture : "",
             );
         })
         .catch((error: any) => {

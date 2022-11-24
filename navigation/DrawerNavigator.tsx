@@ -2,19 +2,14 @@ import { Ionicons } from '@expo/vector-icons';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import React from 'react';
 import { Pressable } from 'react-native';
-import { DefaultColor } from '../constants/Colors';
-import { AgriTypeScreen, AgriTypeDetailScreen } from '../screens/Agirculture';
-import HomeScreen from '../screens/HomeScreen';
-import { InfestationScreen, TreatScreen, InstructionScreen } from '../screens/Infestation';
 import { LoginScreen } from '../screens/Login';
-import PreventScreen from '../screens/PreventMeasures/PreventScreen';
-import { RecommendationScreen, SeasonScreen, SearchScreen } from '../screens/Recommendation';
+import { ProfileScreen } from '../screens/Profile';
 import RegisterScreen from '../screens/Register/RegisterScreen';
 import { DrawerStackParamList } from '../types';
-import { handleGetNames } from '../utils/utls';
 import CommunityNavigator from './CommunityNavigator';
 import DrawerContent from './DrawerContent';
 import MainStackNavigator from './MainStackNavigator';
+import ProfileNavigator from './ProfileNavigator';
 
 const Drawer = createDrawerNavigator<DrawerStackParamList>();
 
@@ -74,6 +69,14 @@ export default function MyDrawer() {
         component={CommunityNavigator}
         options={(data) => ({
           title: "Community",
+          headerShown: true
+        })}
+      />
+      <Drawer.Screen
+        name="ProfileDrawer"
+        component={ProfileNavigator}
+        options={(data) => ({
+          title: "Profile",
           headerShown: true
         })}
       />

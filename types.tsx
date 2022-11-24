@@ -37,6 +37,11 @@ export type DrawerStackParamList = {
   Login: undefined;
   Register: undefined;
   Community: undefined;
+  ProfileDrawer: undefined;
+};
+
+export type ProfileStackParamLst = {
+  Profile: undefined;
 };
 
 
@@ -80,7 +85,6 @@ export type MainStackParamLst = {
     infestation: Infestation;
     recommendation: Recommendation;
   };
-
 }
 
 
