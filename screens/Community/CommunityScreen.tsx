@@ -51,6 +51,7 @@ export default function CommunityScreen() {
             });
     };
 
+    // @ts-ignore
     const _renderItem = ({ item, index }) => {
         return (
             <PostCard

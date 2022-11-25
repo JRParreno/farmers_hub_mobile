@@ -24,6 +24,7 @@ export default function PostCard(props: IProps) {
         <PostHeader
             dateUpdate={dateUpdated}
             profile={profile}
+            post={props.post}
         />
         <TouchableOpacity
             onPress={() => {

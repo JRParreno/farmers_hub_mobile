@@ -103,3 +103,39 @@ export async function createPost(photo: string, description: string) {
         throw error;
     });
 }
+
+export async function updatePost(pk: string, photo: string, description: string) {
+    let data = {};
+
+    if (photo.length > 1) {
+        data = {
+            "description": description,
+            "image": photo,
+            "pk": pk
+        }
+    } else {
+        data = {
+            "description": description,
+            "pk": pk
+        }
+    }
+
+    const url = `${ApiConfig().apiUrl}/post/update/${pk}`;
+    return await apiInstance.patch(url, data).then(response => {
+        const data = response.data;
+        return data;
+    }).catch((error: any) => {
+        throw error;
+    });
+}
+
+export async function deletePost(pk: string) {
+
+    const url = `${ApiConfig().apiUrl}/post/delete/${pk}`;
+    return await apiInstance.delete(url).then(response => {
+        const data = response.data;
+        return "Post deleted successfully";
+    }).catch((error: any) => {
+        throw error;
+    });
+}

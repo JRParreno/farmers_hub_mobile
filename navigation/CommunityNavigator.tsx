@@ -1,5 +1,5 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { CommunityScreen, PostCreateScreen, PostDetailScreen } from '../screens/Community';
+import { CommunityScreen, PostCreateScreen, PostDetailScreen, PostEditScreen } from '../screens/Community';
 import { CommunityStackParamLst } from '../types';
 
 const Stack = createNativeStackNavigator<CommunityStackParamLst>();
@@ -14,6 +14,8 @@ export default function CommunityNavigator() {
             <Stack.Screen name="PostList" component={CommunityScreen} />
             <Stack.Screen name="Post" component={PostDetailScreen} />
             <Stack.Screen name="PostCreate" component={PostCreateScreen} />
+            <Stack.Screen name="PostEdit" component={PostEditScreen} />
+
         </Stack.Navigator>
     );
 }

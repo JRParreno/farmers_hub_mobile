@@ -51,6 +51,9 @@ export type CommunityStackParamLst = {
     post: Post;
   };
   PostCreate: undefined;
+  PostEdit: {
+    post: Post;
+  };
 }
 
 export type MainStackParamLst = {
