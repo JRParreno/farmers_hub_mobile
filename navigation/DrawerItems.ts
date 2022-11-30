@@ -1,7 +1,7 @@
 export const drawerData = [
     {
         name: 'Home',
-        screen: 'Home',
+        screen: 'HomeMain',
         icon: 'home'
     },
     {
