@@ -12,7 +12,14 @@ export const handleGetNames = (insecticides: Array<ChemicalInsecticide>) => {
 
 
 export const getInitialName = (firstName: string) => {
-  return firstName.split(" ").map((n: string) => {
-    return n.split("")[0].toLocaleUpperCase();
-  });
+  const nameSplit = firstName.split(" ");
+  if (1 < nameSplit.length) {
+    return nameSplit.map((n: string) => {
+      if (n.split("")[0] !== undefined) {
+        return n.split("")[0].toLocaleUpperCase();
+      }
+      return "";
+    }).join("");
+  }
+  return nameSplit.length === 0 ? "" : nameSplit[0].toLocaleUpperCase();
 }

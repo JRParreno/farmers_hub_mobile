@@ -41,7 +41,7 @@ export default function CommentCard(props: IProps) {
             <Avatar
               size={40}
               rounded
-              title={getInitialName(firstName).join("")}
+              title={getInitialName(firstName)}
               containerStyle={{ backgroundColor: DefaultColor.main }}
             />
           }
