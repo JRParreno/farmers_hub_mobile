@@ -125,7 +125,7 @@ export default function LoginForm(props: IProps) {
                                 }}
                                 onPress={() => {
                                     // @ts-ignore
-                                    navigation.navigate("ForgotPassword")
+                                    // navigation.navigate("ForgotPassword")
                                 }}
                             >
                                 <PoppinText style={{

@@ -55,6 +55,7 @@ export default function MyDrawer() {
         component={LoginScreen}
         options={(data) => ({
           title: "",
+          headerShown: true
         })}
       />
       <Drawer.Screen
@@ -62,6 +63,8 @@ export default function MyDrawer() {
         component={RegisterScreen}
         options={(data) => ({
           title: "",
+          headerShown: true
+
         })}
       />
       <Drawer.Screen
