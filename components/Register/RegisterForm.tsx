@@ -166,6 +166,19 @@ export default function RegisterForm(props: IProps) {
                             />
                         </View>
 
+                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 10, marginBottom: 20 }}>
+                            <TouchableLink
+                                title={""}
+                                onPress={() => navigation.navigate('Login')}
+                                styleText={{
+                                    fontFamily: "poppins-regular",
+                                    fontSize: 14,
+                                }}
+                                style={{ alignSelf: 'center' }}
+                                underlineText={'Login here'}
+                            />
+                        </View>
+
                         <View style={{ flex: 0, justifyContent: 'center', marginTop: 20 }}>
                             <ButtonComponent
                                 title={"SUBMIT"}
