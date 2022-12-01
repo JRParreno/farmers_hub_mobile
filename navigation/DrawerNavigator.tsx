@@ -77,7 +77,6 @@ export default function MyDrawer() {
         component={ProfileNavigator}
         options={(data) => ({
           title: "Profile",
-          headerShown: true
         })}
       />
     </Drawer.Navigator>

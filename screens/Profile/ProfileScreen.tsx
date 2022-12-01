@@ -1,42 +1,67 @@
-import { useFocusEffect, useIsFocused } from "@react-navigation/native";
+import { Ionicons } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { StackActions, useFocusEffect, useIsFocused, useNavigation } from "@react-navigation/native";
 import * as React from "react";
 import { useCallback, useContext, useState } from "react";
-import { ScrollView, StyleSheet, View } from "react-native";
+import { Alert, ScrollView, StyleSheet, View } from "react-native";
+import { ListItem } from "react-native-elements";
 import { ProfileForm } from "../../components/Profile";
 import ViewWithLoading from "../../components/ViewWithLoading";
+import { DefaultColor } from "../../constants/Colors";
 import { ProfileContext } from "../../context/UserContext";
 import Profile from "../../models/Profile";
 
 export default function ProfileScreen() {
-    const [loading, setLoading] = useState<boolean>(true);
-    const profileContext = useContext(ProfileContext);
-    const { email, firstName, lastName, mobileNumber } = profileContext!.profile!;
-    const [profile, setProfile] = useState<Profile | null>(null);
-
-    useFocusEffect(
-        useCallback(
-            () => {
-                setLoading(true);
-                setProfile(null);
-                setTimeout(() => {
-                    setProfile(profileContext!.profile!);
-                    setLoading(false);
-                }, 1000);
-            },
-            [useIsFocused()],
+    const userContext = useContext(ProfileContext);
+    const navigation = useNavigation();
+    const handleLogout = async () => {
+        Alert.alert("Farm Hub", "Are you sure you want to logout?",
+            [
+                {
+                    text: 'Cancel',
+                    style: 'cancel',
+                    onPress: () => { }
+                },
+                {
+                    text: 'Ok',
+                    style: 'destructive',
+                    onPress: () => handleProceedLogout()
+                },
+            ]
         )
-    )
+    };
 
-    return <ViewWithLoading loading={loading}>
+    const handleProceedLogout = async () => {
+        await AsyncStorage.multiRemove(['accessToken', 'refreshToken', 'user']).finally(() => {
+            userContext?.setProfile(null);
+            navigation.dispatch(StackActions.replace('Root'));
+        });
+    }
+
+    return <ViewWithLoading loading={false}>
         <View style={styles.container}>
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-                {profile && <ProfileForm
-                    setLoading={setLoading}
-                    email={profile.email}
-                    firstName={profile.firstName}
-                    lastName={profile.lastName}
-                    mobileNumber={profile.mobileNumber}
-                />}
+                <ListItem bottomDivider hasTVPreferredFocus={undefined} tvParallaxProperties={undefined}
+                    onPress={() => {
+                        //@ts-ignore
+                        navigation.navigate("Info");
+                    }}
+                >
+                    <Ionicons name="person" size={26} color={DefaultColor.main} />
+                    <ListItem.Content>
+                        <ListItem.Title>Information</ListItem.Title>
+                    </ListItem.Content>
+                    <ListItem.Chevron tvParallaxProperties={undefined} />
+                </ListItem>
+
+                <ListItem bottomDivider hasTVPreferredFocus={undefined} tvParallaxProperties={undefined}
+                    onPress={handleLogout}
+                >
+                    <Ionicons name="log-out" size={26} color={DefaultColor.main} />
+                    <ListItem.Content>
+                        <ListItem.Title>Logout</ListItem.Title>
+                    </ListItem.Content>
+                </ListItem>
             </ScrollView>
         </View>
     </ViewWithLoading>;

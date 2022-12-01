@@ -1,6 +1,8 @@
+import InformationScreen from "./InformationScreen";
 import ProfileScreen from "./ProfileScreen";
 
 export {
-    ProfileScreen
+    ProfileScreen,
+    InformationScreen
 }
 
