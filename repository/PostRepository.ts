@@ -11,7 +11,7 @@ export async function fetchPostList(page: string) {
             return new Post(
                 data.pk,
                 new Profile(
-                    data.profile.user.pk,
+                    data.profile.pk,
                     data.profile.user.username,
                     data.profile.user.email,
                     data.profile.user.first_name,
