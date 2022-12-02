@@ -1,7 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Pressable } from 'react-native';
-import { InformationScreen, ProfileScreen } from '../screens/Profile';
+import { InformationScreen, PasswordScreen, ProfileScreen } from '../screens/Profile';
 import { ProfileStackParamLst } from '../types';
 
 const Stack = createNativeStackNavigator<ProfileStackParamLst>();
@@ -40,6 +40,7 @@ export default function ProfileNavigator() {
                 })}
             />
             <Stack.Screen name="Info" component={InformationScreen} />
+            <Stack.Screen name="Password" component={PasswordScreen} />
         </Stack.Navigator>
     );
 }

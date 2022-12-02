@@ -49,7 +49,20 @@ export default function ProfileScreen() {
                 >
                     <Ionicons name="person" size={26} color={DefaultColor.main} />
                     <ListItem.Content>
-                        <ListItem.Title>Information</ListItem.Title>
+                        <ListItem.Title>Update Profile</ListItem.Title>
+                    </ListItem.Content>
+                    <ListItem.Chevron tvParallaxProperties={undefined} />
+                </ListItem>
+
+                <ListItem bottomDivider hasTVPreferredFocus={undefined} tvParallaxProperties={undefined}
+                    onPress={() => {
+                        //@ts-ignore
+                        navigation.navigate("Password");
+                    }}
+                >
+                    <Ionicons name="lock-closed" size={26} color={DefaultColor.main} />
+                    <ListItem.Content>
+                        <ListItem.Title>Change Password</ListItem.Title>
                     </ListItem.Content>
                     <ListItem.Chevron tvParallaxProperties={undefined} />
                 </ListItem>

@@ -43,6 +43,7 @@ export type DrawerStackParamList = {
 export type ProfileStackParamLst = {
   Profile: undefined;
   Info: undefined;
+  Password: undefined;
 };
 
 
