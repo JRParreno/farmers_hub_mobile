@@ -1,5 +1,4 @@
 import BottomSheet, {
-  BottomSheetBackdrop,
   BottomSheetScrollView,
 } from "@gorhom/bottom-sheet";
 import {
@@ -33,6 +32,7 @@ export default function SeasonScreen() {
   const [seasonInfo, setSeasonInfo] = useState<RecommendationSeason | null>(
     null
   );
+  const [stages, setStages] = useState<Array<String>>([]);
   // ref
   const bottomSheetRef = useRef<BottomSheet>(null);
   const insectSheetRef = useRef<BottomSheet>(null);
@@ -48,6 +48,23 @@ export default function SeasonScreen() {
 
   const handleClosePress = () => insectSheetRef.current!.close();
   const handleCloseSeasonPress = () => bottomSheetRef.current!.close();
+
+  const handleGetStages = () => {
+    let tempStages: Array<String> = [];
+    for (let index = 0; index < recommendation.infestations.length; index++) {
+      const element = recommendation.infestations[index];
+      if (!tempStages.includes(element.insect_stage) && element.insect_stage !== "N\A") {
+        tempStages.push(element.insect_stage);
+      }
+    }
+    setStages(tempStages);
+  }
+
+  useFocusEffect(
+    useCallback(() => {
+      handleGetStages();
+    }, []),
+  )
 
   return (
     <ViewWithLoading loading={loading}>
@@ -119,25 +136,26 @@ export default function SeasonScreen() {
         >
           <BottomSheetScrollView>
             <View style={styles.contentContainer}>
-              {recommendation.infestations.length > 0 &&
-                recommendation.infestations.map(
-                  (data: Infestation, index: number) => (
+              {stages.length > 0 &&
+                stages.map(
+                  (data: String, index: number) => (
                     <ListItem
-                      key={data.pk}
+                      key={index}
                       bottomDivider
                       hasTVPreferredFocus={undefined}
                       tvParallaxProperties={undefined}
                       topDivider={index == 0}
                       onPress={() => {
                         handleClosePress();
-                        navigation.navigate("Infestation", {
-                          infestation: data,
+                        // @ts-ignore
+                        navigation.navigate("InfestationList", {
+                          insect_stage: data,
                           recommendation: recommendation,
                         });
                       }}
                     >
                       <ListItem.Content>
-                        <ListItem.Title>{data.insect.name}</ListItem.Title>
+                        <ListItem.Title>{data}</ListItem.Title>
                         {/* <ListItem.Subtitle>{item.author.user.name}</ListItem.Subtitle> */}
                       </ListItem.Content>
                       <ListItem.Chevron tvParallaxProperties />

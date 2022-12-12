@@ -27,7 +27,7 @@ export default function InfestationCard(props: IProps) {
             },
           ]}
         >
-          <PoppinText style={styles.titleStyle}>INSECTS</PoppinText>
+          <PoppinText style={styles.titleStyle}>STAGES</PoppinText>
         </View>
         <ImageBackground
           source={require("../../assets/images/season/insect.gif")}

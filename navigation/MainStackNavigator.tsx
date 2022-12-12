@@ -6,7 +6,7 @@ import { CommunityScreen, PostCreateScreen, PostDetailScreen } from '../screens/
 import HomeScreen from '../screens/HomeScreen';
 import { InfestationScreen, TreatScreen, InstructionScreen } from '../screens/Infestation';
 import PreventScreen from '../screens/PreventMeasures/PreventScreen';
-import { RecommendationScreen, SeasonScreen, SearchScreen } from '../screens/Recommendation';
+import { RecommendationScreen, SeasonScreen, SearchScreen, InfestationListScreen } from '../screens/Recommendation';
 import { MainStackParamLst } from '../types';
 
 const Stack = createNativeStackNavigator<MainStackParamLst>();
@@ -89,6 +89,14 @@ export default function MainStackNavigator() {
                     title: "",
                 })}
             />
+            <Stack.Screen
+                name="InfestationList"
+                component={InfestationListScreen}
+                options={(data) => ({
+                    title: "Stage",
+                })}
+            />
+
         </Stack.Navigator>
     );
 }

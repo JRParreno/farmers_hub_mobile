@@ -78,6 +78,10 @@ export type MainStackParamLst = {
     infestation: Infestation;
     recommendation: Recommendation;
   };
+  InfestationList: {
+    insect_stage: String;
+    recommendation: Recommendation;
+  };
   Treat: {
     infestation: Infestation;
     recommendation: Recommendation;

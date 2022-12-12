@@ -33,7 +33,7 @@ export async function fetchAgricultureTypes(props: IProps) {
 }
 
 export async function fetchRecommendation(props: IProps) {
-    const { page, pk, query} = props;
+    const { page, pk, query } = props;
     return await axios.get(`${ApiConfig().apiUrl}/recommendation/list?title=${query}&type=${pk}&page=${page}`).then(response => {
         return response.data.results.map((data: Recommendation) => {
             return data;
