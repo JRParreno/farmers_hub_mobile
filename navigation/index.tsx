@@ -33,6 +33,8 @@ import Profile from "../models/Profile";
 import { ErrorMessage } from "../utils/ErrorMessage";
 import { ProfileContext } from "../context/UserContext";
 import TermsConditionsScreen from "../screens/TermsAndConditions";
+import PrivacyPolicyScreen from "../screens/PrivacyPolicyScreen";
+import HelpScreen from "../screens/HelpScreen";
 
 export default function Navigation({
   colorScheme,
@@ -141,13 +143,30 @@ function RootNavigator() {
         <Stack.Screen name="NotFound" component={ModalScreen} />
       </Stack.Group>
       <Stack.Group
-        screenOptions={{ presentation: "modal", gestureEnabled: true }}
+        screenOptions={{ presentation: "modal", gestureEnabled: true, }}
       >
         <Stack.Screen
-          name="PrivacyPolicy"
+          name="TermCondition"
           component={TermsConditionsScreen}
           options={{
             title: "Terms and Conditions",
+            headerRight: () => null
+          }}
+        />
+        <Stack.Screen
+          name="PrivacyPolicy"
+          component={PrivacyPolicyScreen}
+          options={{
+            title: "Privacy Policy",
+            headerRight: () => null
+          }}
+        />
+        <Stack.Screen
+          name="Help"
+          component={HelpScreen}
+          options={{
+            title: "Help",
+            headerRight: () => null
           }}
         />
       </Stack.Group>

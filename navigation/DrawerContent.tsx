@@ -139,8 +139,6 @@ const DrawerContent = (props: any) => {
                                 onPress={() => {
                                     if (data.name === 'Help') {
                                         Alert.alert("Farm Hub", "Help");
-                                    } else if (data.name === 'Privacy Policy') {
-                                        Alert.alert("Farm Hub", "Privacy Policy");
                                     } else {
                                         navigation.navigate(data.screen);
                                     }

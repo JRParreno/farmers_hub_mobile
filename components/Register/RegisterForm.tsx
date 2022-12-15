@@ -156,13 +156,13 @@ export default function RegisterForm(props: IProps) {
                         <View style={{ flex: 0, justifyContent: 'flex-start', alignItems: 'flex-start', marginTop: 10, marginBottom: 20 }}>
                             <TouchableLink
                                 title={"By signing up, you agree to the "}
-                                onPress={() => navigation.navigate('PrivacyPolicy')}
+                                onPress={() => navigation.navigate('TermCondition')}
                                 styleText={{
                                     fontFamily: "poppins-regular",
                                     fontSize: 14,
                                 }}
                                 style={{ alignSelf: 'flex-start' }}
-                                underlineText={'Terms of Use and Privacy Policy '}
+                                underlineText={'Terms and Conditions '}
                             />
                         </View>
 

@@ -30,6 +30,8 @@ export type RootStackParamList = {
   NotFound: undefined;
   Landing: undefined;
   PrivacyPolicy: undefined;
+  TermCondition: undefined;
+  Help: undefined;
 };
 
 export type DrawerStackParamList = {

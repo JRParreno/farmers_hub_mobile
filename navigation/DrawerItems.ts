@@ -16,12 +16,17 @@ export const drawerData = [
     },
     {
         name: 'Help',
-        screen: 'HelpDrawer',
+        screen: 'Help',
         icon: 'help-circle'
     },
     {
         name: 'Privacy Policy',
-        screen: 'PrivacyPolicyDrawer',
+        screen: 'PrivacyPolicy',
+        icon: 'information-circle'
+    },
+    {
+        name: 'Terms and Conditions',
+        screen: 'TermCondition',
         icon: 'information-circle'
     },
 ];

@@ -9,10 +9,10 @@ import { TipCard } from "../../components/Tip";
 import ViewWithLoading from "../../components/ViewWithLoading";
 import { DefaultColor } from "../../constants/Colors";
 import { Instruction, SafetyPrecaution } from "../../models/Infestation";
-import { DrawerStackParamList } from "../../types";
+import { MainStackParamLst } from "../../types";
 
 type IType = {
-  params: DrawerStackParamList["Instruction"];
+  params: MainStackParamLst["Instruction"];
 };
 
 export default function InstructionScreen() {
@@ -21,6 +21,17 @@ export default function InstructionScreen() {
   const instruction = route.params.instruction;
   const recommendation = route.params.recommendation;
   const navigation = useNavigation();
+
+  const handleGetToxicColor = () => {
+    switch (instruction.hazard_level) {
+      case "LOW":
+        return "#00FF00";
+      case "MODERATE":
+        return "#FFFF00";
+      default:
+        return "#FF0000";
+    }
+  }
 
   return (
     <ViewWithLoading loading={loading}>
@@ -60,13 +71,13 @@ export default function InstructionScreen() {
           <TipCard
             iconName={"nuclear"}
             text={`${instruction.hazard_level} Toxic`}
-            style={{ backgroundColor: "red" }}
+            style={{ backgroundColor: handleGetToxicColor() }}
             textStyle={{
-              color: DefaultColor.white,
+              color: instruction.hazard_level === "HIGH" ? DefaultColor.white : DefaultColor.black,
               fontSize: 18,
               fontFamily: "poppins-semibold",
             }}
-            iconColor={DefaultColor.white}
+            iconColor={instruction.hazard_level === "HIGH" ? DefaultColor.white : DefaultColor.black}
           />
           <TipCard
             iconName={"information-circle-sharp"}
