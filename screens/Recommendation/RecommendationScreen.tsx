@@ -118,7 +118,7 @@ export default function RecommendationScreen() {
               fontSize: 17,
             }}
           >
-            {i18n.language === i18nEnum.Tagalog ? "Recommendation " : "Rekomendasyon "}
+            {i18n.language === i18nEnum.English ? "Recommendation " : "Rekomendasyon "}
             <PoppinText
               style={{
                 color: DefaultColor.main,
