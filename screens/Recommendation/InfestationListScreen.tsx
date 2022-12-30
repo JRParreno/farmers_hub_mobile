@@ -1,6 +1,6 @@
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import * as React from "react";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { ListItem } from "react-native-elements";
 import { PoppinText } from "../../components/StyledText";
@@ -8,10 +8,16 @@ import ViewWithLoading from "../../components/ViewWithLoading";
 import { DefaultColor } from "../../constants/Colors";
 import Infestation from "../../models/Infestation";
 import { MainStackParamLst } from "../../types";
+import { i18nContext } from "../../context/i18nContext";
 
 type IType = {
     params: MainStackParamLst["InfestationList"];
 };
+
+enum i18nEnum {
+    English,
+    Tagalog
+}
 
 export default function InfestationListScreen() {
     const [loading, setLoading] = useState<boolean>(false);
@@ -19,10 +25,16 @@ export default function InfestationListScreen() {
     const route = useRoute<RouteProp<IType, "params">>();
     const recommendation = route.params.recommendation;
     const insect_stage = route.params.insect_stage;
+    const i18n = useContext(i18nContext);
 
     return <ViewWithLoading loading={loading}>
         <View style={styles.container}>
-            <PoppinText style={{ margin: 10, fontFamily: "poppins-semibold", fontSize: 18 }}>{insect_stage}</PoppinText>
+            <PoppinText style={{ margin: 10, fontFamily: "poppins-semibold", fontSize: 18 }}>
+                {i18n.language === i18nEnum.Tagalog ?
+                    insect_stage.toLowerCase() === "flowering" ? "Pamumulaklak" : "Pag aani" :
+                    insect_stage
+                }
+            </PoppinText>
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
                 <View style={styles.contentContainer}>
                     {recommendation.infestations.length > 0 &&

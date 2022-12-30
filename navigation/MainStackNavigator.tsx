@@ -99,7 +99,7 @@ export default function MainStackNavigator() {
                 name="InfestationList"
                 component={InfestationListScreen}
                 options={(data) => ({
-                    title: "Stage",
+                    title: i18n.language === i18nEnum.Tagalog ? "Mga yugto" : "Stages"
                 })}
             />
 

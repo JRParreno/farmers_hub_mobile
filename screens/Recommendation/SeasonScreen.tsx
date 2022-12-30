@@ -117,7 +117,12 @@ export default function SeasonScreen() {
               {seasonInfo && (
                 <React.Fragment>
                   <PoppinTextBold>
-                    {seasonInfo.season.name} SEASON
+                    {
+                      i18n.language === i18nEnum.Tagalog ?
+                        seasonInfo.season.name === "DRY" ? "Tag-araw" : "Tag-ulan"
+                        :
+                        `${seasonInfo.season.name} SEASON`
+                    }
                   </PoppinTextBold>
                   <PoppinText>{seasonInfo.description}</PoppinText>
                 </React.Fragment>
