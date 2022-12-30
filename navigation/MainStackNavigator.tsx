@@ -2,16 +2,22 @@ import { Ionicons } from '@expo/vector-icons';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Pressable } from 'react-native';
 import { AgriTypeScreen, AgriTypeDetailScreen } from '../screens/Agirculture';
-import { CommunityScreen, PostCreateScreen, PostDetailScreen } from '../screens/Community';
 import HomeScreen from '../screens/HomeScreen';
 import { InfestationScreen, TreatScreen, InstructionScreen } from '../screens/Infestation';
 import PreventScreen from '../screens/PreventMeasures/PreventScreen';
 import { RecommendationScreen, SeasonScreen, SearchScreen, InfestationListScreen } from '../screens/Recommendation';
 import { MainStackParamLst } from '../types';
-
+import { useContext } from 'react';
+import { i18nContext } from '../context/i18nContext';
+enum i18nEnum {
+    English,
+    Tagalog
+}
 const Stack = createNativeStackNavigator<MainStackParamLst>();
 
 export default function MainStackNavigator() {
+    const i18n = useContext(i18nContext);
+
     return (
         <Stack.Navigator
             screenOptions={(nav) => ({
@@ -79,7 +85,7 @@ export default function MainStackNavigator() {
             <Stack.Screen
                 name="PreventMeasures"
                 component={PreventScreen}
-                options={{ title: "Preventive Measures" }}
+                options={{ title: i18n.language === i18nEnum.Tagalog ? "Mga hakbang sa pagiwas" : "Preventive Measures" }}
             />
 
             <Stack.Screen

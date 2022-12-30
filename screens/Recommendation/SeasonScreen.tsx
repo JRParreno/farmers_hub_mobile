@@ -8,7 +8,7 @@ import {
   useRoute,
 } from "@react-navigation/native";
 import * as React from "react";
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useContext, useMemo, useRef, useState } from "react";
 import { Dimensions, Pressable, StyleSheet, View } from "react-native";
 import { ListItem } from "react-native-elements";
 import { InfestationCard } from "../../components/Insect";
@@ -19,10 +19,16 @@ import { DefaultColor } from "../../constants/Colors";
 import Infestation from "../../models/Infestation";
 import { RecommendationSeason } from "../../models/Season";
 import { DrawerStackParamList } from "../../types";
+import { i18nContext } from "../../context/i18nContext";
 
 type IType = {
   params: DrawerStackParamList["Season"];
 };
+
+enum i18nEnum {
+  English,
+  Tagalog
+}
 
 export default function SeasonScreen() {
   const navigation = useNavigation();
@@ -36,6 +42,7 @@ export default function SeasonScreen() {
   // ref
   const bottomSheetRef = useRef<BottomSheet>(null);
   const insectSheetRef = useRef<BottomSheet>(null);
+  const i18n = useContext(i18nContext);
 
   // variables
   const snapPoints = useMemo(() => ["50%", "75%"], []);
@@ -155,7 +162,14 @@ export default function SeasonScreen() {
                       }}
                     >
                       <ListItem.Content>
-                        <ListItem.Title>{data}</ListItem.Title>
+                        <ListItem.Title>
+                          {i18n.language === i18nEnum.Tagalog ?
+                            data.toLowerCase() === "flowering" ?
+                              "Pamumulaklak" : "Pag aani"
+                            :
+                            data
+                          }
+                        </ListItem.Title>
                         {/* <ListItem.Subtitle>{item.author.user.name}</ListItem.Subtitle> */}
                       </ListItem.Content>
                       <ListItem.Chevron tvParallaxProperties />

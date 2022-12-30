@@ -19,12 +19,19 @@ import { useContext } from 'react';
 import { Avatar } from 'react-native-elements';
 import { DefaultColor } from '../constants/Colors';
 import { ProfileContext } from '../context/UserContext';
+import { i18nContext } from '../context/i18nContext';
+
+enum i18nEnum {
+    English,
+    Tagalog
+}
 
 const DrawerContent = (props: any) => {
     const [modalVisible, setModalVisible] = React.useState<boolean>(false);
     const navigation = props.navigation;
     const [alertPresent, setAlertPresent] = React.useState<boolean>(false);
     const userContext = useContext(ProfileContext);
+    const i18n = useContext(i18nContext);
 
 
     const handleLogout = async () => {
@@ -39,6 +46,25 @@ const DrawerContent = (props: any) => {
                     text: 'Ok',
                     style: 'destructive',
                     onPress: () => handleProceedLogout()
+                },
+            ]
+        )
+    };
+
+    const handleChangeLanguage = async () => {
+        Alert.alert("Language", `Change to ${i18n.language === i18nEnum.Tagalog ? "English" : "Tagalog"}?`,
+            [
+                {
+                    text: 'Cancel',
+                    style: 'cancel',
+                    onPress: () => { }
+                },
+                {
+                    text: 'Ok',
+                    style: 'destructive',
+                    onPress: () => {
+                        i18n.setLanguage(i18n.language === i18nEnum.Tagalog ? i18nEnum.English : i18nEnum.Tagalog);
+                    }
                 },
             ]
         )
@@ -139,6 +165,8 @@ const DrawerContent = (props: any) => {
                                 onPress={() => {
                                     if (data.name === 'Help') {
                                         Alert.alert("Farm Hub", "Help");
+                                    } else if (data.name === "Language") {
+                                        handleChangeLanguage();
                                     } else {
                                         navigation.navigate(data.screen);
                                     }

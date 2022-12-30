@@ -1,6 +1,6 @@
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import * as React from "react";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { SafetyCard, InstructionCard } from "../../components/Instructions";
 import LinkBtn from "../../components/LinkBtn";
@@ -10,10 +10,16 @@ import ViewWithLoading from "../../components/ViewWithLoading";
 import { DefaultColor } from "../../constants/Colors";
 import { Instruction, SafetyPrecaution } from "../../models/Infestation";
 import { MainStackParamLst } from "../../types";
+import { i18nContext } from "../../context/i18nContext";
 
 type IType = {
   params: MainStackParamLst["Instruction"];
 };
+
+enum i18nEnum {
+  English,
+  Tagalog
+}
 
 export default function InstructionScreen() {
   const [loading, setLoading] = useState<boolean>(false);
@@ -21,6 +27,7 @@ export default function InstructionScreen() {
   const instruction = route.params.instruction;
   const recommendation = route.params.recommendation;
   const navigation = useNavigation();
+  const i18n = useContext(i18nContext);
 
   const handleGetToxicColor = () => {
     switch (instruction.hazard_level) {
@@ -30,6 +37,17 @@ export default function InstructionScreen() {
         return "#FFFF00";
       default:
         return "#FF0000";
+    }
+  }
+
+  const handleGetToxicI18n = () => {
+    switch (instruction.hazard_level) {
+      case "LOW":
+        return "Mababa ang";
+      case "MODERATE":
+        return "Katamtaman ang";
+      default:
+        return "Mataas ang";
     }
   }
 
@@ -49,7 +67,7 @@ export default function InstructionScreen() {
                 marginBottom: 20,
               }}
             >
-              Application Instructions
+              {i18n.language === i18nEnum.Tagalog ? "Tamang paggamit" : "Application Instructions"}
             </PoppinText>
             {instruction.instructions.length > 0 &&
               instruction.instructions.map(
@@ -70,7 +88,9 @@ export default function InstructionScreen() {
           </View>
           <TipCard
             iconName={"nuclear"}
-            text={`${instruction.hazard_level} Toxic`}
+            text={i18n.language === i18nEnum.Tagalog ?
+              `${handleGetToxicI18n()} toxicity`
+              : `${instruction.hazard_level} Toxic`}
             style={{ backgroundColor: handleGetToxicColor() }}
             textStyle={{
               color: instruction.hazard_level === "HIGH" ? DefaultColor.white : DefaultColor.black,
@@ -92,7 +112,7 @@ export default function InstructionScreen() {
                 marginBottom: 20,
               }}
             >
-              Safety Precautions!
+              {i18n.language === i18nEnum.Tagalog ? "Panukalang pangkaligtasan" : "Safety Precautions"}!
             </PoppinText>
             {instruction.safety_precautions.length > 0 &&
               instruction.safety_precautions.map(

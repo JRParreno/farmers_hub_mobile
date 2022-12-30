@@ -1,16 +1,23 @@
 import * as React from "react";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { ImageBackground, Pressable, StyleSheet, View } from "react-native";
 import { DefaultColor } from "../../constants/Colors";
 import Infestation from "../../models/Infestation";
 import { PoppinText } from "../StyledText";
+import { i18nContext } from "../../context/i18nContext";
 
 interface IProps {
   onPress: () => void;
 }
 
+enum i18nEnum {
+  English,
+  Tagalog
+}
+
 export default function InfestationCard(props: IProps) {
   const { onPress } = props;
+  const i18n = useContext(i18nContext);
 
   return (
     <Pressable
@@ -27,7 +34,9 @@ export default function InfestationCard(props: IProps) {
             },
           ]}
         >
-          <PoppinText style={styles.titleStyle}>STAGES</PoppinText>
+          <PoppinText style={styles.titleStyle}>
+            {i18n.language === i18nEnum.Tagalog ? "Mga yugto" : "STAGES"}
+          </PoppinText>
         </View>
         <ImageBackground
           source={require("../../assets/images/season/insect.gif")}

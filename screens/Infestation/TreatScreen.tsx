@@ -1,6 +1,6 @@
 import { RouteProp, useFocusEffect, useRoute } from "@react-navigation/native";
 import * as React from "react";
-import { useCallback, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 import { Alert, Pressable, StyleSheet, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import {
@@ -14,10 +14,16 @@ import { getData, storeData } from "../../database/StoreData";
 import { rateRecommendation } from "../../repository/AgriRepository";
 import { DrawerStackParamList } from "../../types";
 import { ErrorMessage } from "../../utils/ErrorMessage";
+import { i18nContext } from "../../context/i18nContext";
 
 type IType = {
   params: DrawerStackParamList["Treat"];
 };
+
+enum i18nEnum {
+  English,
+  Tagalog
+}
 
 export default function TreatScreen() {
   const [loading, setLoading] = useState<boolean>(false);
@@ -26,6 +32,7 @@ export default function TreatScreen() {
   const route = useRoute<RouteProp<IType, "params">>();
   const infestation = route.params.infestation;
   const recommendation = route.params.recommendation;
+  const i18n = useContext(i18nContext);
 
   const handleRateRecommendation = (rate: number) => {
     setLoading(true);
@@ -71,25 +78,26 @@ export default function TreatScreen() {
           {infestation.recommendation_description.length > 0 && (
             <RecommendationText
               text={infestation.recommendation_description}
-              title="Recommendations"
+              title={i18n.language === i18nEnum.Tagalog ? "Mga Rekomendasyon" : "Recommendations"}
             />
           )}
           {infestation.organic_control.length > 0 && (
             <RecommendationText
               text={infestation.organic_control}
-              title="Organic Control"
+              title={i18n.language === i18nEnum.Tagalog ? "Organikong Kontrol" : "Organic Control"}
             />
           )}
           <ChemicalControlCard
             chemicalControls={infestation.chemical_controls}
-            title="Chemical Controls"
+            title={i18n.language === i18nEnum.Tagalog ? "Kemikal Kontrol" : "Chemical Control"}
             recommendation={recommendation}
           />
         </ScrollView>
         {visible && (
           <View style={styles.rateContainer}>
             <PoppinText style={{ fontFamily: "poppins-semibold" }}>
-              How useful did you find this information?
+              {i18n.language === i18nEnum.Tagalog ? "Gaano nakakatulong ang impormasyong ito" : "How useful did you find this information?"}
+
             </PoppinText>
             <View style={styles.rateChildContainer}>
               <Pressable

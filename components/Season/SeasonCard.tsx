@@ -1,8 +1,9 @@
 import * as React from "react";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { ImageBackground, Pressable, StyleSheet, View } from "react-native";
 import { RecommendationSeason } from "../../models/Season";
 import { PoppinText } from "../StyledText";
+import { i18nContext } from "../../context/i18nContext";
 
 interface IProps {
   season: RecommendationSeason;
@@ -10,9 +11,15 @@ interface IProps {
   onPress: (season: RecommendationSeason) => void;
 }
 
+enum i18nEnum {
+  English,
+  Tagalog
+}
+
 export default function SeasonCard(props: IProps) {
   const { index, onPress } = props;
   const { description, pk, image, season } = props.season;
+  const i18n = useContext(i18nContext);
 
   return (
     <Pressable
@@ -38,8 +45,10 @@ export default function SeasonCard(props: IProps) {
               ]}
             >
               <PoppinText style={styles.titleStyle}>
-                {season.name}
-                {"\n"}SEASON
+                {i18n.language === i18nEnum.Tagalog ?
+                  season.name === "DRY" ? "Tag-araw" : "Tag-ulan" :
+                  `${season.name} \nSEASON`
+                }
               </PoppinText>
             </View>
             {season.name === "DRY" ? (
@@ -106,8 +115,10 @@ export default function SeasonCard(props: IProps) {
               ]}
             >
               <PoppinText style={styles.titleStyle}>
-                {season.name}
-                {"\n"}SEASON
+                {i18n.language === i18nEnum.Tagalog ?
+                  season.name === "DRY" ? "Tag-araw" : "Tag-ulan" :
+                  `${season.name} \nSEASON`
+                }
               </PoppinText>
             </View>
           </React.Fragment>

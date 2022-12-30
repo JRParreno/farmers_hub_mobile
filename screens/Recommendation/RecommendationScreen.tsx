@@ -5,7 +5,7 @@ import {
   useRoute,
 } from "@react-navigation/native";
 import * as React from "react";
-import { useCallback, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 import { Avatar, ListItem, SearchBar } from "react-native-elements";
 import AgriTypeCard from "../../components/AgriItemCard";
@@ -16,10 +16,16 @@ import Recommendation from "../../models/Recommendation";
 import { fetchRecommendation } from "../../repository/AgriRepository";
 import { DrawerStackParamList } from "../../types";
 import { ErrorMessage } from "../../utils/ErrorMessage";
+import { i18nContext } from "../../context/i18nContext";
 
 type IType = {
   params: DrawerStackParamList["RecommendationList"];
 };
+
+enum i18nEnum {
+  English,
+  Tagalog
+}
 
 export default function RecommendationScreen() {
   const route = useRoute<RouteProp<IType, "params">>();
@@ -31,6 +37,7 @@ export default function RecommendationScreen() {
     useState<Array<Recommendation> | null>(null);
   const [numPage, setNumPage] = useState("1");
   const [refreshing, setRefreshing] = useState<boolean>(false);
+  const i18n = useContext(i18nContext);
 
   const handleGetRecommendation = (page: number, q?: string) => {
     fetchRecommendation({
@@ -111,7 +118,7 @@ export default function RecommendationScreen() {
               fontSize: 17,
             }}
           >
-            Recommendation{" "}
+            {i18n.language === i18nEnum.Tagalog ? "Recommendation " : "Rekomendasyon "}
             <PoppinText
               style={{
                 color: DefaultColor.main,

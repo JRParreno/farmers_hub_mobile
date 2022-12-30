@@ -5,7 +5,7 @@ import {
   useRoute,
 } from "@react-navigation/native";
 import * as React from "react";
-import { useCallback, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 import { SearchBar } from "react-native-elements";
 import AgriTypeCard from "../../components/AgriType/AgriTypeCard";
@@ -16,10 +16,16 @@ import AgriType from "../../models/AgriType";
 import { fetchAgricultureTypes } from "../../repository/AgriRepository";
 import { DrawerStackParamList } from "../../types";
 import { ErrorMessage } from "../../utils/ErrorMessage";
+import { i18nContext } from "../../context/i18nContext";
 
 type IType = {
   params: DrawerStackParamList["AgicultureTypes"];
 };
+
+enum i18nEnum {
+  English,
+  Tagalog
+}
 
 export default function AgriTypeScreen() {
   const route = useRoute<RouteProp<IType, "params">>();
@@ -30,6 +36,7 @@ export default function AgriTypeScreen() {
   const [agris, setAgris] = useState<Array<AgriType> | null>(null);
   const [numPage, setNumPage] = useState("1");
   const [refreshing, setRefreshing] = useState<boolean>(false);
+  const i18n = useContext(i18nContext);
 
   const handleGetAgris = (page: number, q?: string) => {
     fetchAgricultureTypes({
@@ -132,7 +139,7 @@ export default function AgriTypeScreen() {
                 fontSize: 17,
               }}
             >
-              Please select{" "}
+              {i18n.language === i18nEnum.Tagalog ? "Pumili ng " : "Please select "}
               <PoppinText
                 style={{
                   color: DefaultColor.main,

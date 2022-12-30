@@ -29,4 +29,9 @@ export const drawerData = [
         screen: 'TermCondition',
         icon: 'information-circle'
     },
+    {
+        name: 'Language',
+        screen: 'TermCondition',
+        icon: 'language-outline'
+    },
 ];

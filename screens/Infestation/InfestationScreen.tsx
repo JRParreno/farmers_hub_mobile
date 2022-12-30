@@ -1,6 +1,6 @@
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import * as React from "react";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { ButtonComponent } from "../../components/Button/StyledButton";
@@ -10,10 +10,16 @@ import { PoppinTextBold } from "../../components/StyledText";
 import ViewWithLoading from "../../components/ViewWithLoading";
 import { DefaultColor } from "../../constants/Colors";
 import { DrawerStackParamList } from "../../types";
+import { i18nContext } from "../../context/i18nContext";
 
 type IType = {
   params: DrawerStackParamList["Infestation"];
 };
+
+enum i18nEnum {
+  English,
+  Tagalog
+}
 
 export default function InfestationScreen() {
   const navigation = useNavigation();
@@ -21,6 +27,7 @@ export default function InfestationScreen() {
   const route = useRoute<RouteProp<IType, "params">>();
   const infestation = route.params.infestation;
   const recommendation = route.params.recommendation;
+  const i18n = useContext(i18nContext);
 
   return (
     <ViewWithLoading loading={loading}>
@@ -30,8 +37,9 @@ export default function InfestationScreen() {
           <InsectInfestationCard insect={infestation.insect} />
           <Symptoms symptoms={infestation.symptoms} />
           <ButtonComponent
-            title="Prevent"
+            title={i18n.language === i18nEnum.Tagalog ? "Pigilan" : "Prevent"}
             onPress={() => {
+              // @ts-ignore
               navigation.navigate("PreventMeasures", {
                 infestation: infestation,
                 recommendation: recommendation,
@@ -40,8 +48,9 @@ export default function InfestationScreen() {
             backgroundColor={DefaultColor.secondary}
           />
           <ButtonComponent
-            title="Treat Now"
+            title={i18n.language === i18nEnum.Tagalog ? "Gamutin" : "Treat Now"}
             onPress={() => {
+              // @ts-ignore
               navigation.navigate("Treat", {
                 infestation: infestation,
                 recommendation: recommendation,

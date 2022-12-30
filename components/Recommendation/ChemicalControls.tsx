@@ -1,7 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import * as React from "react";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { Avatar, ListItem } from "react-native-elements";
 import { DefaultColor } from "../../constants/Colors";
@@ -13,6 +13,7 @@ import {
 import Recommendation from "../../models/Recommendation";
 import { handleGetNames } from "../../utils/utls";
 import { PoppinText } from "../StyledText";
+import { i18nContext } from "../../context/i18nContext";
 
 interface IProps {
   chemicalControls: Array<ChemicalControls>;
@@ -20,9 +21,15 @@ interface IProps {
   recommendation: Recommendation;
 }
 
+enum i18nEnum {
+  English,
+  Tagalog
+}
+
 export default function ChemicalControlCard(props: IProps) {
   const { chemicalControls, title, recommendation } = props;
   const navigation = useNavigation();
+  const i18n = useContext(i18nContext);
 
   return (
     <View style={{ flex: 0 }}>
@@ -43,14 +50,26 @@ export default function ChemicalControlCard(props: IProps) {
             color={DefaultColor.black}
             style={{ marginRight: 10 }}
           />
-          <PoppinText>
-            Select and apply{" "}
-            <PoppinText style={{ fontFamily: "poppins-semibold" }}>
-              ONLY ONE
-            </PoppinText>{" "}
-            of the following products to your{" "}
-            {recommendation.agriculture_type.name}
-          </PoppinText>
+          {i18n.language === i18nEnum.English ?
+            <PoppinText>
+              Select and apply{" "}
+              <PoppinText style={{ fontFamily: "poppins-semibold" }}>
+                ONLY ONE
+              </PoppinText>{" "}
+              of the following products to your{" "}
+              {recommendation.agriculture_type.name}
+            </PoppinText>
+            :
+
+            <PoppinText>
+              Pumili  lamang ng {" "}
+              <PoppinText style={{ fontFamily: "poppins-semibold" }}>
+                isa
+              </PoppinText>{" "}
+              sa mga sumusunod  na produkto at gamitin sa iyong pananim{" "}
+              {recommendation.agriculture_type.name}
+            </PoppinText>
+          }
         </View>
       )}
 
